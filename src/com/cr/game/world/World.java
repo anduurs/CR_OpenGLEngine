@@ -42,8 +42,8 @@ public class World {
 		if(camera.getPos().y > ((height*Tile.TILE_HEIGHT) - camera.getHeight()))
 			camera.getPos().y = (height*Tile.TILE_HEIGHT) - camera.getHeight();
 		
-//		camera.setCamX(EntityManager.getHero().getX() - (camera.getWidth()/2 - EntityManager.getHero().getWidth()));
-//		camera.setCamY(EntityManager.getHero().getY() - (camera.getHeight()/2 - EntityManager.getHero().getHeight()));
+		camera.setCamX(EntityManager.getHero().getX() - (camera.getWidth()/2 - EntityManager.getHero().getWidth()));
+		camera.setCamY(EntityManager.getHero().getY() - (camera.getHeight()/2 - EntityManager.getHero().getHeight()));
 		
 		em.tick(dt);
 	}
@@ -52,9 +52,9 @@ public class World {
 		xScroll = (int) (Camera.getCamX());
 		yScroll = (int) (Camera.getCamY());
 		
-//		map.renderMap(screen, xScroll, yScroll);
+		map.renderMap(screen, xScroll, yScroll);
 		
-		em.render(screen);
+//		em.render(screen);
 	}
 
 }

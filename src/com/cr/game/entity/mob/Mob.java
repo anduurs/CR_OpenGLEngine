@@ -48,9 +48,9 @@ public abstract class Mob extends Entity implements Tickable, Renderable{
 	
 	@Override
 	public void render(Screen screen) {
-		glBindTexture(GL_TEXTURE_2D, sprite.getTexID());
-		screen.renderSprite(sprite, position.x - Camera.getCamX(), position.y - Camera.getCamY());
-		glBindTexture(GL_TEXTURE_2D, 0);
+//		glBindTexture(GL_TEXTURE_2D, sprite.getTexID());
+//		screen.renderSprite(sprite, position.x - Camera.getCamX(), position.y - Camera.getCamY());
+//		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 	public Vector2f getVelocity() {

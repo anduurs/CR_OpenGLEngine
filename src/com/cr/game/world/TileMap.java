@@ -50,8 +50,8 @@ public class TileMap {
 //		stoneLayer = new TileLayer(ImageLoader.getImage("stonelayer"));
 //		waterLayer = new TileLayer(ImageLoader.getImage("waterlayer"));
 //		sandLayer = new TileLayer(ImageLoader.getImage("sandlayer"));
-		grassLayer = new TileLayer(50, 50);
-		dirtLayer = new TileLayer(50, 50);
+		grassLayer = new TileLayer(100, 100);
+//		dirtLayer = new TileLayer(50, 50);
 		
 		
 		
@@ -63,15 +63,16 @@ public class TileMap {
 //		waterLayer.addTile(ColorRGBA.BLUE, new WaterTile());
 //		sandLayer.addTile(ColorRGBA.ORANGE, new SandTile());
 		grassLayer.addTile(ColorRGBA.GREEN, new GrassTile());
-		dirtLayer.addTile(ColorRGBA.BROWN, new DirtTile());
+		grassLayer.generateTileLayer();
+		//dirtLayer.addTile(ColorRGBA.BROWN, new DirtTile());
 		
 		for(int i = 0; i < grassLayer.pixels.length; i++){
 			grassLayer.pixels[i] = grassLayer.getTileID();
 		}
 		
-		for(int i = 0; i < dirtLayer.pixels.length; i++){
-			dirtLayer.pixels[i] = 0;
-		}
+//		for(int i = 0; i < dirtLayer.pixels.length; i++){
+//			dirtLayer.pixels[i] = 0;
+//		}
 	
 //		grassLayer.removeTile(10, 10);
 //		grassLayer.removeTile(11, 10);

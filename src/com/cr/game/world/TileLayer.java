@@ -4,11 +4,19 @@ import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.glBindTexture;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.cr.game.core.Window;
+import com.cr.game.graphics.Mesh;
 import com.cr.game.graphics.Screen;
+import com.cr.game.graphics.Shader;
 import com.cr.game.util.Randomizer;
+import com.cr.game.util.Transform;
+import com.cr.game.util.Vector2f;
+import com.cr.game.util.Vector3f;
+import com.cr.game.util.Vertex;
 import com.cr.game.world.tile.Tile;
 
 public class TileLayer {
@@ -24,6 +32,11 @@ public class TileLayer {
 	}
 	
 	private int xOffset, yOffset;
+	
+	
+	private Mesh mesh;
+	private Shader shader;
+	private Transform transform;
 
 	public TileLayer(BufferedImage img){
 		this.img = img;
@@ -41,9 +54,19 @@ public class TileLayer {
 		this.height = height;
 		pixels = new int[width*height];
 		
-		for(int i = 0; i < pixels.length; i++){
-			pixels[i] = 0;
-		}
+		shader = new Shader();
+		
+		shader.addVertexShader("vertexShader");
+		shader.addFragmentShader("fragmentShader");
+		shader.createShaderProgram();
+		
+		shader.addUniform("transformation");
+		shader.addUniform("sampler");
+		shader.updateUniformi("sampler", 0);
+		
+		transform = new Transform();
+		
+		//generateTileLayer();
 		
 		
 	}
@@ -104,21 +127,84 @@ public class TileLayer {
 		return false;
 	}
 	
+//	public void renderTileLayer(Screen screen, int xScroll, int yScroll){
+//
+//		int x0 = xScroll / Tile.TILE_WIDTH;
+//		int x1 = (xScroll + Window.getWidth() + Tile.TILE_WIDTH) / Tile.TILE_WIDTH;
+//		int y0 = yScroll / Tile.TILE_HEIGHT;
+//		int y1 = (yScroll + Window.getHeight() + Tile.TILE_HEIGHT) / Tile.TILE_HEIGHT;
+//		
+//		glBindTexture(GL_TEXTURE_2D, tiles.get(getTileID()).getSprite().getTexID());
+//		
+//		for(int y = y0; y < y1; y++)
+//			for(int x = x0; x < x1; x++)
+//				if(shouldRender(x, y))
+//					getTile(x, y).render(screen, x, y, xScroll, yScroll);	
+//		
+//		glBindTexture(GL_TEXTURE_2D, 0);
+//	}
+	
 	public void renderTileLayer(Screen screen, int xScroll, int yScroll){
+		
+		transform.translate(xScroll, yScroll, 0);
+		shader.bind();
+		shader.updateUniform("transformation", transform.getOrthoProjection());
+		tiles.get(getTileID()).getTexture().bind();
 
-		int x0 = xScroll / Tile.TILE_WIDTH;
-		int x1 = (xScroll + Window.getWidth() + Tile.TILE_WIDTH) / Tile.TILE_WIDTH;
-		int y0 = yScroll / Tile.TILE_HEIGHT;
-		int y1 = (yScroll + Window.getHeight() + Tile.TILE_HEIGHT) / Tile.TILE_HEIGHT;
+		mesh.render();
 		
-		glBindTexture(GL_TEXTURE_2D, tiles.get(getTileID()).getSprite().getTexID());
+		tiles.get(getTileID()).getTexture().unbind();
+		shader.unbind();
 		
-		for(int y = y0; y < y1; y++)
-			for(int x = x0; x < x1; x++)
-				if(shouldRender(x, y))
-					getTile(x, y).render(screen, x, y, xScroll, yScroll);	
+	}
+	
+	public void generateTileLayer(){
+		List<Vertex> vertices = new ArrayList<Vertex>();
+		List<Integer> indices = new ArrayList<Integer>();
 		
-		glBindTexture(GL_TEXTURE_2D, 0);
+		
+		for(int x = 0; x < width; x++){
+			for(int y = 0; y < height; y++){
+				
+				float xHigh = 1;
+				float xLow = 0;
+				float yHigh = 1;
+				float yLow = 0;
+				
+				float tWidth = tiles.get(getTileID()).getTexture().getWidth();
+				float tHeight = tiles.get(getTileID()).getTexture().getHeight();
+				
+				float xPos = x * tWidth;
+				float yPos = y * tHeight;
+				
+				indices.add(vertices.size() + 0);
+				indices.add(vertices.size() + 1);
+				indices.add(vertices.size() + 2);
+				
+				indices.add(vertices.size() + 2);
+				indices.add(vertices.size() + 3);
+				indices.add(vertices.size() + 0);
+				
+				vertices.add(new Vertex(new Vector3f(xPos, yPos, 0), new Vector2f(xLow,yLow)));
+				vertices.add(new Vertex(new Vector3f(xPos, yPos + tHeight, 0), new Vector2f(xHigh,yLow)));
+				vertices.add(new Vertex(new Vector3f(xPos+tWidth, yPos + tHeight, 0), new Vector2f(xHigh,yHigh)));
+				vertices.add(new Vertex(new Vector3f(xPos + tWidth, yPos, 0), new Vector2f(xLow,yHigh)));
+			}
+		}
+		
+		Vertex[] vertexArray = new Vertex[vertices.size()];
+		Integer[] indexArray = new Integer[indices.size()];
+		
+		vertices.toArray(vertexArray);
+		indices.toArray(indexArray);
+		
+		int[] iArray = new int[indexArray.length];
+		
+		for(int i = 0; i < indexArray.length; i++)
+			iArray[i] = indexArray[i];
+		
+		mesh = new Mesh(vertexArray, iArray);
+		
 	}
 	
 	public int getWidth(){

@@ -10,17 +10,17 @@ public class Screen {
 	private Transform transform;
 
 	public Screen(){
-		shader = new Shader();
-		
-		shader.addVertexShader("vertexShader");
-		shader.addFragmentShader("fragmentShader");
-		shader.createShaderProgram();
-		
-		shader.addUniform("transformation");
-		shader.addUniform("sampler");
-		shader.updateUniformi("sampler", 0);
-		
-		transform = new Transform();
+//		shader = new Shader();
+//		
+//		shader.addVertexShader("vertexShader");
+//		shader.addFragmentShader("fragmentShader");
+//		shader.createShaderProgram();
+//		
+//		shader.addUniform("transformation");
+//		shader.addUniform("sampler");
+//		shader.updateUniformi("sampler", 0);
+//		
+//		transform = new Transform();
 		
 		initGL();
 	}
@@ -46,19 +46,19 @@ public class Screen {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 	
-	public void renderSprite(Sprite sprite, float x, float y){
-		transform.translate(x, y, 0);
-	
-		shader.bind();
-			shader.updateUniform("transformation", transform.getOrthoProjection());
-			sprite.bind();
-				glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0);
-			sprite.unbind();
-		shader.unbind();
-	}
+//	public void renderSprite(Sprite sprite, float x, float y){
+//		transform.translate(x, y, 0);
+//	
+//		shader.bind();
+//			shader.updateUniform("transformation", transform.getOrthoProjection());
+//			sprite.bind();
+//				glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0);
+//			sprite.unbind();
+//		shader.unbind();
+//	}
 	
 	public void cleanUp(){
-		shader.deleteShader();
+		//shader.deleteShader();
 	}
 
 }

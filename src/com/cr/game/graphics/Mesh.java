@@ -2,7 +2,7 @@ package com.cr.game.graphics;
 
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
-import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
+import static org.lwjgl.opengl.GL11.GL_UNSIGNED_INT;
 import static org.lwjgl.opengl.GL11.glDrawElements;
 import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
 import static org.lwjgl.opengl.GL15.GL_ELEMENT_ARRAY_BUFFER;
@@ -17,6 +17,7 @@ import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
 
@@ -28,19 +29,29 @@ public class Mesh {
 	private int size;
 	
 	private FloatBuffer vertexBuffer;
-	private ByteBuffer indexBuffer;
+	private IntBuffer indexBuffer;
 	
-	public Mesh(float[] vertices, byte[] indices){
+	public Mesh(Vertex[] vertices, int[] indices){
 		size = 0;
 		addVertices(vertices, indices);
 	}
 	
-	private void addVertices(float[] vertices, byte[] indices){
-		vertexBuffer = BufferUtils.createFloatBuffer(vertices.length);
-		vertexBuffer.put(vertices);
+	private void addVertices(Vertex[] vertices, int[] indices){
+		
+		vertexBuffer = BufferUtils.createFloatBuffer(Vertex.VERTEX_SIZE * vertices.length);
+		
+		for(int i = 0; i < vertices.length; i++){
+			vertexBuffer.put(vertices[i].getPos().x);
+			vertexBuffer.put(vertices[i].getPos().y);
+			vertexBuffer.put(vertices[i].getPos().z);
+			
+			vertexBuffer.put(vertices[i].getTexCoord().x);
+			vertexBuffer.put(vertices[i].getTexCoord().y);
+		}		
+		
 		vertexBuffer.flip();
 		
-		indexBuffer = BufferUtils.createByteBuffer(indices.length);
+		indexBuffer = BufferUtils.createIntBuffer(indices.length);
 		indexBuffer.put(indices);
 		indexBuffer.flip();
 		
@@ -61,7 +72,7 @@ public class Mesh {
 		
 		glBindBuffer(GL_ARRAY_BUFFER, vboID);
 		glVertexAttribPointer(0, 3, GL_FLOAT, false, Vertex.VERTEX_SIZE * 4, 0);
-		glVertexAttribPointer(0, 2, GL_FLOAT, false, Vertex.VERTEX_SIZE * 4, 12);
+		glVertexAttribPointer(1, 2, GL_FLOAT, false, Vertex.VERTEX_SIZE * 4, 12);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		
 		glEnableVertexAttribArray(0);
@@ -72,9 +83,10 @@ public class Mesh {
 	
 	public void render(){
 		glBindVertexArray(vaoID);
+		
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboID);
 		
-		glDrawElements(GL_TRIANGLES, size, GL_UNSIGNED_BYTE, 0);
+		glDrawElements(GL_TRIANGLES, size, GL_UNSIGNED_INT, 0);
 		
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);

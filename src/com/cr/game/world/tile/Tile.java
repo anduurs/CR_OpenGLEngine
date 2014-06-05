@@ -2,6 +2,7 @@ package com.cr.game.world.tile;
 
 import com.cr.game.graphics.Screen;
 import com.cr.game.graphics.Sprite;
+import com.cr.game.graphics.Texture;
 
 public abstract class Tile {
 	
@@ -9,12 +10,17 @@ public abstract class Tile {
 	public static  final int TILE_DRAW_OFFSET_X = -7;
 	public static  final int TILE_DRAW_OFFSET_Y = -5;
 	
-	private Sprite sprite;
+	private int width, height;
+	
+	private Texture texture;
 	
 	protected boolean solid;
 	
 	public Tile(String imageString){
-		sprite = new Sprite(imageString);
+	
+		texture = new Texture(imageString);
+		width = texture.getWidth();
+		height = texture.getHeight();
 		solid = true;
 	}
 	
@@ -24,11 +30,19 @@ public abstract class Tile {
 		xPos -= xOffset;
 		yPos -= yOffset;
 		
-		screen.renderSprite(sprite, xPos, yPos);
+		//screen.renderSprite(sprite, xPos, yPos);
 	}
 
-	public Sprite getSprite() {
-		return sprite;
+	public Texture getTexture() {
+		return texture;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 
 	public boolean isSolid() {
