@@ -146,7 +146,7 @@ public class TileLayer {
 	
 	public void renderTileLayer(Screen screen, int xScroll, int yScroll){
 		
-		transform.translate(xScroll, yScroll, 0);
+		transform.translate(-xScroll, -yScroll, 0);
 		shader.bind();
 		shader.updateUniform("transformation", transform.getOrthoProjection());
 		tiles.get(getTileID()).getTexture().bind();
@@ -162,14 +162,8 @@ public class TileLayer {
 		List<Vertex> vertices = new ArrayList<Vertex>();
 		List<Integer> indices = new ArrayList<Integer>();
 		
-		
-		for(int x = 0; x < width; x++){
-			for(int y = 0; y < height; y++){
-				
-				float xHigh = 1;
-				float xLow = 0;
-				float yHigh = 1;
-				float yLow = 0;
+		for(int y = 0; y < height; y++){
+			for(int x = 0; x < width; x++){
 				
 				float tWidth = tiles.get(getTileID()).getTexture().getWidth();
 				float tHeight = tiles.get(getTileID()).getTexture().getHeight();
@@ -181,14 +175,14 @@ public class TileLayer {
 				indices.add(vertices.size() + 1);
 				indices.add(vertices.size() + 2);
 				
-				indices.add(vertices.size() + 2);
-				indices.add(vertices.size() + 3);
 				indices.add(vertices.size() + 0);
+				indices.add(vertices.size() + 3);
+				indices.add(vertices.size() + 2);
 				
-				vertices.add(new Vertex(new Vector3f(xPos, yPos, 0), new Vector2f(xLow,yLow)));
-				vertices.add(new Vertex(new Vector3f(xPos, yPos + tHeight, 0), new Vector2f(xHigh,yLow)));
-				vertices.add(new Vertex(new Vector3f(xPos+tWidth, yPos + tHeight, 0), new Vector2f(xHigh,yHigh)));
-				vertices.add(new Vertex(new Vector3f(xPos + tWidth, yPos, 0), new Vector2f(xLow,yHigh)));
+				vertices.add(new Vertex(new Vector3f(xPos, 0, yPos), new Vector2f(0,0)));
+				vertices.add(new Vertex(new Vector3f(xPos, 0, yPos + tHeight), new Vector2f(0,1)));
+				vertices.add(new Vertex(new Vector3f(xPos + tWidth, 0, yPos + tHeight), new Vector2f(1,1)));
+				vertices.add(new Vertex(new Vector3f(xPos + tWidth, 0, yPos), new Vector2f(1,0)));
 			}
 		}
 		
@@ -204,7 +198,6 @@ public class TileLayer {
 			iArray[i] = indexArray[i];
 		
 		mesh = new Mesh(vertexArray, iArray);
-		
 	}
 	
 	public int getWidth(){

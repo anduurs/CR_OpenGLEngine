@@ -73,6 +73,7 @@ public class Texture {
 			
 			int id = glGenTextures();
 		
+			
 			glBindTexture(GL_TEXTURE_2D, id);
 			
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
