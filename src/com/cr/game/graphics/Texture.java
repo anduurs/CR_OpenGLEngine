@@ -61,11 +61,11 @@ public class Texture {
 			for(int y = 0; y < h; y++)
 				for(int x = 0; x < w; x++){
 					int pixelData = pixels[x + (y*w)];
-					buffer.put((byte) ((pixelData >> 16) & 0xFF));  //RED
-					buffer.put((byte) ((pixelData >> 8) & 0xFF));   //GREEN
-					buffer.put((byte) (pixelData & 0xFF));          //BLUE
+					buffer.put((byte) ((pixelData >> 16) & 0xFF));  //RED Component
+					buffer.put((byte) ((pixelData >> 8) & 0xFF));   //GREEN Component
+					buffer.put((byte) (pixelData & 0xFF));          //BLUE Component
 					if(hasAlpha)
-						buffer.put((byte) ((pixelData >> 24) & 0xFF)); //ALPHA
+						buffer.put((byte) ((pixelData >> 24) & 0xFF)); //ALPHA Component
 					else buffer.put((byte) 0xFF);
 				}
 			

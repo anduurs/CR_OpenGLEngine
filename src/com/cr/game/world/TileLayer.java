@@ -175,14 +175,16 @@ public class TileLayer {
 				indices.add(vertices.size() + 1);
 				indices.add(vertices.size() + 2);
 				
-				indices.add(vertices.size() + 0);
-				indices.add(vertices.size() + 3);
 				indices.add(vertices.size() + 2);
+				indices.add(vertices.size() + 3);
+				indices.add(vertices.size() + 0);
 				
-				vertices.add(new Vertex(new Vector3f(xPos, 0, yPos), new Vector2f(0,0)));
-				vertices.add(new Vertex(new Vector3f(xPos, 0, yPos + tHeight), new Vector2f(0,1)));
-				vertices.add(new Vertex(new Vector3f(xPos + tWidth, 0, yPos + tHeight), new Vector2f(1,1)));
-				vertices.add(new Vertex(new Vector3f(xPos + tWidth, 0, yPos), new Vector2f(1,0)));
+				vertices.add(new Vertex(new Vector3f(xPos, yPos, 0), new Vector2f(0,0)));
+				vertices.add(new Vertex(new Vector3f(xPos, yPos + tHeight, 0), new Vector2f(0,1)));
+				vertices.add(new Vertex(new Vector3f(xPos + tWidth, yPos + tHeight, 0), new Vector2f(1,1)));
+				vertices.add(new Vertex(new Vector3f(xPos + tWidth, yPos, 0), new Vector2f(1,0)));
+			
+				
 			}
 		}
 		

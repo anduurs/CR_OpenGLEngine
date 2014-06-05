@@ -10,7 +10,7 @@ public class Transform {
 	public Transform(){
 		translation = new Vector3f(0,0,0);
 		ortho = new Matrix4f().initProjectionOrtho(0, Window.getWidth(), Window.getHeight(), 0, -1f, 1f);
-		pers = new Matrix4f().initProjectionPerspective(70, Window.getWidth(),  Window.getHeight(), 0.01f, 1000f);
+		//pers = new Matrix4f().initProjectionPerspective(70, Window.getWidth(),  Window.getHeight(), 0.01f, 1000f);
 	}
 	
 	public Matrix4f getTranslationMatrix(){

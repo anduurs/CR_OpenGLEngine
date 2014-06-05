@@ -50,7 +50,7 @@ public class TileMap {
 //		stoneLayer = new TileLayer(ImageLoader.getImage("stonelayer"));
 //		waterLayer = new TileLayer(ImageLoader.getImage("waterlayer"));
 //		sandLayer = new TileLayer(ImageLoader.getImage("sandlayer"));
-		grassLayer = new TileLayer(1, 1);
+		grassLayer = new TileLayer(500, 500);
 //		dirtLayer = new TileLayer(50, 50);
 		
 		

@@ -1,7 +1,10 @@
 package com.cr.game.resource;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
+
+import javax.imageio.ImageIO;
 
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -79,6 +82,16 @@ public class ImageLoader {
 //		imageLib.put("turquoise", loadImage("image", "turquoise.png"));
 //		imageLib.put("basicleather", loadImage("image", "basicleather.png"));
 //		imageLib.put("forestsoul", loadImage("image", "forestsoul.png"));
+	}
+	
+	public static synchronized BufferedImage loadImage(String path){
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(ImageLoader.class.getResource(path));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return img;
 	}
 	
 	private static synchronized Texture loadImage(String folder, String name){
