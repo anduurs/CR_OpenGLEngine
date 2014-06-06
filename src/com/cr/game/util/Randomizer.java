@@ -27,5 +27,9 @@ public class Randomizer {
 	public static int getInt2(int min, int max){
 		return rnd.nextInt((max + 1) - min) + min;
 	}
+
+	public static float getFloat() {
+		return rnd.nextFloat();
+	}
 	
 }

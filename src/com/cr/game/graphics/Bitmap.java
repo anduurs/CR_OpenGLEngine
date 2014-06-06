@@ -48,13 +48,22 @@ public class Bitmap {
 	}
 	
 	/**
-	 * Sets the pixel located at (x,y) to the given color
+	 * Sets the pixel located at (x,y) to the given value
 	 * @param x the x position of the pixel
 	 * @param y the y position of the pixel
-	 * @param color the color which the pixel will be set to
+	 * @param color the value which the pixel will be set to
 	 */
 	public void setPixel(int x, int y, int color){
 		pixels[x + (y*width)] = color;
+	}
+	
+	/**
+	 * Sets the pixel at the given index to the given color value
+	 * @param index the pixels index in the pixel array
+	 * @param color the color value that the pixel will get
+	 */
+	public void setPixel(int index, int color){
+		pixels[index] = color;
 	}
 	
 	/**
@@ -89,6 +98,10 @@ public class Bitmap {
 	 */
 	public int getHeight() {
 		return height;
+	}
+
+	public int[] getPixels() {
+		return pixels;
 	}
 
 }

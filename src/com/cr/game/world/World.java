@@ -57,7 +57,7 @@ public class World {
 		float yScroll = Camera.getCamY();
 		
 		map.renderMap(xScroll, yScroll);
-		em.render(screen);
+		//em.render(screen);
 	}
 
 	public static Shader getShader() {

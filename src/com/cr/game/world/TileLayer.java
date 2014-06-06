@@ -15,30 +15,36 @@ import com.cr.game.world.tile.Tile;
 
 public class TileLayer {
 	
-	public int[] pixels;
 	private int width, height;
 
+	private Bitmap bitmap;
 	private Mesh mesh;
 	private Shader shader;
 	private Transform transform;
 	
 	private HashMap<Integer, Tile> tiles;
-	
-	private Bitmap bitmap;
 
 	public TileLayer(int width, int height, Transform transform){
+		bitmap = new Bitmap(width, height);
+		
 		this.width = width;
 		this.height = height;
 		this.transform = transform;
 		this.shader = World.getShader();
 		
-		pixels = new int[width*height];
-		
 		tiles = new HashMap<Integer, Tile>();
 	}
 	
-	public TileLayer(String name){
+	public TileLayer(String name, Transform transform){
+		this.transform = transform;
 		bitmap = new Bitmap(name);
+		
+		this.width = bitmap.getWidth();
+		this.height = bitmap.getHeight();
+		this.transform = transform;
+		this.shader = World.getShader();
+		
+		tiles = new HashMap<Integer, Tile>();
 	}
 	
 	public void generateTileLayer(){
@@ -50,13 +56,13 @@ public class TileLayer {
 		
 		for(int y = 0; y < height; y++){
 			for(int x = 0; x < width; x++){
-				if(pixels[x+y*width] == 0) continue;
+				if(bitmap.getPixel(x, y) == 0) continue;
 				
 				float xPos = x * tWidth ;
 				float yPos = y * tHeight ;
 				
-				float xOffset = 0f;
-				float yOffset = 0f;
+				float xOffset = 9f;
+				float yOffset = 7f;
 				
 				indices.add(vertices.size() + 0);
 				indices.add(vertices.size() + 1);
@@ -87,12 +93,16 @@ public class TileLayer {
 		mesh = new Mesh(vertexArray, iArray);
 	}
 	
-	public void addTile(int color, Tile tile){
+	public void addTileType(int color, Tile tile){
 		tiles.put(color, tile);
 	}
 	
+	public void setTile(int x, int y, int color){
+		bitmap.setPixel(x, y, color);
+	}
+	
 	public void removeTile(int x, int y){
-		pixels[x + (y*width)] = 0;
+		bitmap.setPixel(x, y, 0);
 	}
 	
 	public int getTileID(){
@@ -109,11 +119,11 @@ public class TileLayer {
 	}
 	
 	public int getTileID(int x, int y){
-		return pixels[x + (y*width)];
+		return bitmap.getPixel(x, y);
 	}
 	
 	public Tile getTile(int x, int y){
-		return tiles.get(pixels[x + (y*width)]);
+		return tiles.get(bitmap.getPixel(x, y));
 	}
 	
 	public Tile getTile(int color){
@@ -123,7 +133,7 @@ public class TileLayer {
 	public boolean shouldRender(int x, int y){
 		if(x < 0 || y < 0 || x >= width || y >= height)
 			return false;
-		if(tiles.containsKey(pixels[x + (y*width)]))
+		if(tiles.containsKey(bitmap.getPixel(x, y)))
 			return true;
 		return false;
 	}
@@ -144,6 +154,10 @@ public class TileLayer {
 	
 	public int getHeight(){
 		return height;
+	}
+
+	public Bitmap getBitmap() {
+		return bitmap;
 	}
 
 }

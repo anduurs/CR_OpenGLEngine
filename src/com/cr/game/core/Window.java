@@ -25,6 +25,7 @@ public class Window {
 		}else{
 			try {
 				Display.setDisplayMode(new DisplayMode(width, height));
+				//Display.setVSyncEnabled(true);
 				Display.create();
 				Keyboard.create();
 				Mouse.create();

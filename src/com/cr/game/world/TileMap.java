@@ -1,16 +1,14 @@
 package com.cr.game.world;
 
-import com.cr.game.util.ColorRGBA;
 import com.cr.game.util.Transform;
-import com.cr.game.world.tile.DirtTile;
-import com.cr.game.world.tile.GrassTile;
+import com.cr.game.world.biome.Grasslands;
 
 public class TileMap {
 	
 	private int width;
 	private int height;
 	
-	private TileLayer dirtLayer, grassLayer;
+	private TileLayer bottomLayer, middleLayer, topLayer;
 	
 	private static Transform transform;
 	
@@ -20,30 +18,26 @@ public class TileMap {
 		
 		transform = new Transform();
 		
-		grassLayer = new TileLayer(width, height, transform);
-		dirtLayer = new TileLayer(width, height, transform);
+		Grasslands g = new Grasslands(width, height, transform);
 		
-		grassLayer.addTile(ColorRGBA.GREEN, new GrassTile());
-		dirtLayer.addTile(ColorRGBA.BROWN, new DirtTile());
+		bottomLayer = g.getBottomLayer();
+		middleLayer = g.getMiddleLayer();
+		topLayer = g.getTopLayer();
 		
-		for(int i = 0; i < grassLayer.pixels.length; i++)
-			grassLayer.pixels[i] = grassLayer.getTileID();
-		
-		for(int i = 0; i < dirtLayer.pixels.length; i++)
-			dirtLayer.pixels[i] = dirtLayer.getTileID();
-		
-		grassLayer.removeTile(10, 10);
-		grassLayer.removeTile(11, 10);
-		grassLayer.removeTile(11, 11);
-		grassLayer.removeTile(10, 11);
-		
-		grassLayer.generateTileLayer();
-		dirtLayer.generateTileLayer();
+		bottomLayer.generateTileLayer();
+		middleLayer.generateTileLayer();
+		topLayer.generateTileLayer();
+	}
+	
+	public TileMap(){
+		transform = new Transform();
+
 	}
 	
 	public void renderMap(float xScroll, float yScroll){
-		dirtLayer.renderTileLayer(xScroll, yScroll, -0.9f);
-		grassLayer.renderTileLayer(xScroll, yScroll, -0.6f);		
+		bottomLayer.renderTileLayer(xScroll, yScroll, 0);
+		middleLayer.renderTileLayer(xScroll, yScroll, 0);
+		topLayer.renderTileLayer(xScroll, yScroll, 0);
 	}
 	
 	public int getWidth(){
