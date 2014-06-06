@@ -1,13 +1,8 @@
 package com.cr.game.core;
 
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClear;
-
-
 public abstract class CoreEngine {
 	
-	public static int TARGET_FPS = 60;
+	public static int TARGET_TPS = 60;
 	private volatile boolean running = false;
 	
 	public abstract void getInput();
@@ -30,10 +25,11 @@ public abstract class CoreEngine {
 		double passedTime = 0;
 		double accumulator = 0;
 		double frameCounter = 0;
-		final double OPTIMAL_TICK_TIME = 1.0 / TARGET_FPS;
+		final double OPTIMAL_TICK_TIME = 1.0 / TARGET_TPS;
 		
 		float dt = (float) (OPTIMAL_TICK_TIME * 10);
 		int fps = 0;
+		int tps = 0;
 		boolean shouldRender;
 		
 		while(running){
@@ -48,6 +44,7 @@ public abstract class CoreEngine {
 				shouldRender = true;
 				getInput();
 				tick(dt);
+				tps++;
 				accumulator -= OPTIMAL_TICK_TIME;
 			}
 			
@@ -56,8 +53,9 @@ public abstract class CoreEngine {
 			Window.update();
 	
 			if(frameCounter >= 1){
-				Window.setTitle("OpenGL GameEngine" + " || " + fps + " fps");
+				Window.setTitle("Craftmans Revenge v0.01" + " || " + tps + " tps, " + fps + " fps");
 				fps = 0;
+				tps = 0;
 				frameCounter = 0;
 			}
 			
@@ -66,6 +64,4 @@ public abstract class CoreEngine {
 		cleanUp();
 		Window.dispose();
 	}
-	
-
 }

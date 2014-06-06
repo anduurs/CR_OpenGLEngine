@@ -33,14 +33,17 @@ public class TileMap {
 			dirtLayer.pixels[i] = dirtLayer.getTileID();
 		
 		grassLayer.removeTile(10, 10);
+		grassLayer.removeTile(11, 10);
+		grassLayer.removeTile(11, 11);
+		grassLayer.removeTile(10, 11);
 		
 		grassLayer.generateTileLayer();
 		dirtLayer.generateTileLayer();
 	}
 	
 	public void renderMap(float xScroll, float yScroll){
-		dirtLayer.renderTileLayer(xScroll, yScroll, 0f);
-		grassLayer.renderTileLayer(xScroll, yScroll, 1f);		
+		dirtLayer.renderTileLayer(xScroll, yScroll, -0.9f);
+		grassLayer.renderTileLayer(xScroll, yScroll, -0.6f);		
 	}
 	
 	public int getWidth(){

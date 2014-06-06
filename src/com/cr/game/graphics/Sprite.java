@@ -37,7 +37,7 @@ public class Sprite {
 	
 	public void bind(){
 		shader.bind();
-		shader.updateUniform("transformation", transform.getFullTransformation());
+		shader.setUniform("transformation", transform.getFullTransformation());
 		texture.bind();
 	}
 	

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.cr.game.graphics.Bitmap;
 import com.cr.game.graphics.Mesh;
 import com.cr.game.graphics.Shader;
 import com.cr.game.util.Transform;
@@ -22,47 +23,40 @@ public class TileLayer {
 	private Transform transform;
 	
 	private HashMap<Integer, Tile> tiles;
+	
+	private Bitmap bitmap;
 
 	public TileLayer(int width, int height, Transform transform){
 		this.width = width;
 		this.height = height;
 		this.transform = transform;
+		this.shader = World.getShader();
 		
 		pixels = new int[width*height];
 		
 		tiles = new HashMap<Integer, Tile>();
-		
-		shader = new Shader();
-		
-		shader.addVertexShader("vertexShader");
-		shader.addFragmentShader("fragmentShader");
-		shader.createShaderProgram();
-		
-		shader.addUniform("transformation");
-		shader.addUniform("sampler");
-		shader.updateUniformi("sampler", 0);
-		
+	}
 	
-		
+	public TileLayer(String name){
+		bitmap = new Bitmap(name);
 	}
 	
 	public void generateTileLayer(){
 		List<Vertex> vertices = new ArrayList<Vertex>();
 		List<Integer> indices = new ArrayList<Integer>();
 		
+		float tWidth = tiles.get(getTileID()).getTexture().getWidth();
+		float tHeight = tiles.get(getTileID()).getTexture().getHeight();
+		
 		for(int y = 0; y < height; y++){
 			for(int x = 0; x < width; x++){
-				
 				if(pixels[x+y*width] == 0) continue;
-				
-				float tWidth = tiles.get(getTileID()).getTexture().getWidth();
-				float tHeight = tiles.get(getTileID()).getTexture().getHeight();
 				
 				float xPos = x * tWidth ;
 				float yPos = y * tHeight ;
 				
-				float xOffset = 9.5f;
-				float yOffset = 7.5f;
+				float xOffset = 0f;
+				float yOffset = 0f;
 				
 				indices.add(vertices.size() + 0);
 				indices.add(vertices.size() + 1);
@@ -137,11 +131,9 @@ public class TileLayer {
 	public void renderTileLayer(float xScroll, float yScroll, float depth){
 		transform.translate(-xScroll, -yScroll, depth);
 		shader.bind();
-		shader.updateUniform("transformation", transform.getFullTransformation());
+		shader.setUniform("transformation", transform.getFullTransformation());
 		tiles.get(getTileID()).getTexture().bind();
-
 		mesh.render();
-		
 		tiles.get(getTileID()).getTexture().unbind();
 		shader.unbind();
 	}

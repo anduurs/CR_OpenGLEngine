@@ -1,7 +1,5 @@
 package com.cr.game.core;
 
-import static org.lwjgl.opengl.GL11.*;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -10,8 +8,11 @@ import org.lwjgl.opengl.DisplayMode;
 
 public class Window {
 	
-	public static void createWindow(int width, int height, boolean fullscreen){
-		if(fullscreen){
+	private static boolean fullscreenMode;
+	
+	public static void createWindow(int width, int height, boolean fullscreenMode){
+		Window.fullscreenMode = fullscreenMode;
+		if(fullscreenMode){
 			try {
 				Display.setFullscreen(true);
 				Display.setVSyncEnabled(true);
@@ -24,7 +25,6 @@ public class Window {
 		}else{
 			try {
 				Display.setDisplayMode(new DisplayMode(width, height));
-				//Display.setVSyncEnabled(true);
 				Display.create();
 				Keyboard.create();
 				Mouse.create();
@@ -41,7 +41,6 @@ public class Window {
 	
 	public static void update(){
 		Display.update();
-		
 	}
 	
 	public static boolean isCloseRequested(){
@@ -64,5 +63,9 @@ public class Window {
 	
 	public static String getTitle(){
 		return Display.getTitle();
+	}
+
+	public static boolean isFullscreenMode() {
+		return fullscreenMode;
 	}
 }

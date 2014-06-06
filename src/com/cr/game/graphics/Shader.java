@@ -21,12 +21,16 @@ public class Shader {
 	
 	private HashMap<String, Integer> uniforms;
 	
-	public Shader(){
+	public Shader(String vertShader, String fragShader){
 		uniforms = new HashMap<String, Integer>();
 		shaderProgram = glCreateProgram();
+		
+		addVertexShader(vertShader);
+		addFragmentShader(fragShader);
+		createShaderProgram();
 	}
 	
-	public void addVertexShader(String fileName){
+	private void addVertexShader(String fileName){
 		vertexShader = glCreateShader(GL_VERTEX_SHADER);
 		String vertexShaderSource = loadShader(fileName + ".vert");
 		
@@ -40,7 +44,7 @@ public class Shader {
 		glDeleteShader(vertexShader);
 	}
 	
-	public void addFragmentShader(String fileName){
+	private void addFragmentShader(String fileName){
 		fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 		String fragmentShaderSource = loadShader(fileName + ".frag");
 		
@@ -54,7 +58,7 @@ public class Shader {
 		glDeleteShader(fragmentShader);
 	}
 	
-	public void createShaderProgram(){
+	private void createShaderProgram(){
 		glBindAttribLocation(shaderProgram, 0, "position");
 		glBindAttribLocation(shaderProgram, 1, "texCoordIn");
 
@@ -67,15 +71,15 @@ public class Shader {
 		uniforms.put(uniform, uniformLocation);
 	}
 	
-	public void updateUniformi(String uniformName, int value){
+	public void setUniformi(String uniformName, int value){
 		glUniform1i(uniforms.get(uniformName), value);
 	}
 	
-	public void updateUniformf(String uniformName, float value){
+	public void setUniformf(String uniformName, float value){
 		glUniform1f(uniforms.get(uniformName), value);
 	}
 	
-	public void updateUniform(String uniformName, Matrix4f value){
+	public void setUniform(String uniformName, Matrix4f value){
 		FloatBuffer buffer = BufferUtils.createFloatBuffer(4 * 4);
 		
 		for(int i = 0; i < 4; i++)
@@ -101,7 +105,6 @@ public class Shader {
 	}
 	
 	private static String loadShader(String fileName){
-		
 		StringBuilder shaderSource = new StringBuilder();
 		
 		try {
@@ -118,7 +121,6 @@ public class Shader {
 		}
 		
 		return shaderSource.toString();
-		
 	}
 
 }

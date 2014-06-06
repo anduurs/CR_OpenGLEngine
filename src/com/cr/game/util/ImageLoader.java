@@ -12,19 +12,37 @@ public class ImageLoader {
 			new HashMap<String, BufferedImage>();
 	
 	public ImageLoader(){
-		// Tiles
-		imageLib.put("grass", loadImage("/textures/grass.png"));
-		imageLib.put("grass2", loadImage("/textures/grass2.png"));
-		imageLib.put("dirt", loadImage("/textures/dirt.png"));
+		//Tiles
+		imageLib.put("grass", loadImage("/tiles/grass.png"));
+		imageLib.put("grass2", loadImage("/tiles/grass2.png"));
+		imageLib.put("dirt", loadImage("/tiles/dirt.png"));
+		imageLib.put("dirt2", loadImage("/tiles/dirt2.png"));
+		
+		//TileLayers
+		imageLib.put("grasslayer", loadBitmap("/tilelayers/grasslayer.png"));
+		imageLib.put("dirtlayer", loadBitmap("/tilelayers/dirtlayer.png"));
+		imageLib.put("sandlayer", loadBitmap("/tilelayers/sandlayer.png"));
+		imageLib.put("waterlayer", loadBitmap("/tilelayers/waterlayer.png"));
+		imageLib.put("stonelayer", loadBitmap("/tilelayers/stonelayer.png"));
 
-		//hero
-		imageLib.put("hero", loadImage("/textures/hero.png"));
+		//Hero
+		imageLib.put("hero", loadImage("/hero/hero.png"));
 	}
 	
 	private static synchronized BufferedImage loadImage(String path){
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(ImageLoader.class.getResource(path));
+			img = ImageIO.read(ImageLoader.class.getResource("/textures/" + path));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return img;
+	}
+	
+	private static synchronized BufferedImage loadBitmap(String path){
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(ImageLoader.class.getResource("/bitmaps/" + path));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

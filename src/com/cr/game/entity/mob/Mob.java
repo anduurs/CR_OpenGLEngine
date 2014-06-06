@@ -5,6 +5,7 @@ import com.cr.game.entity.Renderable;
 import com.cr.game.entity.Tickable;
 import com.cr.game.graphics.Screen;
 import com.cr.game.graphics.Sprite;
+import com.cr.game.util.Camera;
 import com.cr.game.util.Transform;
 import com.cr.game.util.Vector2f;
 
@@ -47,7 +48,7 @@ public abstract class Mob extends Entity implements Tickable, Renderable{
 	
 	@Override
 	public void render(Screen screen) {
-		screen.renderSprite(sprite, position.x, position.y);
+		screen.renderSprite(sprite, position.x - Camera.getCamX(), position.y - Camera.getCamY());
 	}
 
 	public Vector2f getVelocity() {

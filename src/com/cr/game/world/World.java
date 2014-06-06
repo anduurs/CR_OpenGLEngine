@@ -18,22 +18,18 @@ public class World {
 	private static Shader shader;
 	
 	public World(){
+		shader = new Shader("vertexShader", "fragmentShader");
+		
+		shader.addUniform("transformation");
+		shader.addUniform("sampler");
+		shader.setUniformi("sampler", 0);
+		
 		camera = new Camera(0, 0);
+		
 		map = new TileMap(100, 100);
 
 		width = map.getWidth();
 		height = map.getHeight();
-		
-		
-		shader = new Shader();
-		
-		shader.addVertexShader("vertexShader");
-		shader.addFragmentShader("fragmentShader");
-		shader.createShaderProgram();
-		
-		shader.addUniform("transformation");
-		shader.addUniform("sampler");
-		shader.updateUniformi("sampler", 0);
 		
 		em = new EntityManager();
 	}
