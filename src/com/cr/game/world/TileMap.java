@@ -35,9 +35,9 @@ public class TileMap {
 	}
 	
 	public void renderMap(float xScroll, float yScroll){
-		bottomLayer.renderTileLayer(xScroll, yScroll, 0);
-		middleLayer.renderTileLayer(xScroll, yScroll, 0);
-		topLayer.renderTileLayer(xScroll, yScroll, 0);
+		bottomLayer.renderTileLayer(xScroll, yScroll, -0.9f);
+		middleLayer.renderTileLayer(xScroll, yScroll, -0.8f);
+		topLayer.renderTileLayer(xScroll, yScroll, -0.7f);
 	}
 	
 	public int getWidth(){
@@ -46,6 +46,18 @@ public class TileMap {
 	
 	public int getHeight(){
 		return height;
+	}
+
+	public TileLayer getBottomLayer() {
+		return bottomLayer;
+	}
+
+	public TileLayer getMiddleLayer() {
+		return middleLayer;
+	}
+
+	public TileLayer getTopLayer() {
+		return topLayer;
 	}
 	
 

@@ -18,7 +18,7 @@ public class World {
 	private static Shader shader;
 	
 	public World(){
-		shader = new Shader("vertexShader", "fragmentShader");
+		shader = new Shader("vertexshader", "fragmentshader");
 		
 		shader.addUniform("transformation");
 		shader.addUniform("sampler");
@@ -57,7 +57,7 @@ public class World {
 		float yScroll = Camera.getCamY();
 		
 		map.renderMap(xScroll, yScroll);
-		//em.render(screen);
+		em.render(screen);
 	}
 
 	public static Shader getShader() {

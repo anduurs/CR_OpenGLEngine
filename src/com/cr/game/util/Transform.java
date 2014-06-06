@@ -5,13 +5,14 @@ import com.cr.game.core.Window;
 public class Transform {
 	
 	private Vector3f translation, rotation, scaling;
-	private Matrix4f ortho;
+	private Matrix4f ortho, perspective;
 	
 	public Transform(){
 		translation = new Vector3f(0,0,0);
 		rotation = new Vector3f(0,0,0);
 		scaling = new Vector3f(1,1,1);
-		ortho = new Matrix4f().initProjectionOrtho(0, Window.getWidth(), Window.getHeight(), 0, -1f, 1f);
+		ortho = new Matrix4f().initOrthographicProjection(0, Window.getWidth(), Window.getHeight(), 0, -1f, 1f);
+		perspective = new Matrix4f().initPerspectiveProjection(10f, Window.getWidth(), Window.getHeight(), 1, 400f);
 	}
 	
 	public Matrix4f getTranslationMatrix(){
@@ -39,12 +40,12 @@ public class Transform {
 		return modelMatrix;
 	}
 	
-	public Matrix4f getOrthoProjection(){
-		return ortho;
+	public Matrix4f getOrthoTransformation(){
+		return ortho.mul(getModelMatrix());
 	}
 	
-	public Matrix4f getFullTransformation(){
-		return ortho.mul(getModelMatrix());
+	public Matrix4f getPerspectiveTransformation(){
+		return perspective.mul(getModelMatrix());
 	}
 
 	public void translate(float x, float y, float z) {
@@ -63,6 +64,22 @@ public class Transform {
 		this.scaling.x = x;
 		this.scaling.y = y;
 		this.scaling.z = z;
+	}
+	
+	public Matrix4f getOrthoProjection(){
+		return ortho;
+	}
+	
+	public Matrix4f getPerspectiveProjection(){
+		return perspective;
+	}
+	
+	public void setOrtho(float left, float right, float bottom, float top, float near, float far) {
+		this.ortho = new Matrix4f().initOrthographicProjection(left, right, bottom, top, near, far);
+	}
+
+	public void setPerspective(float fov, float width, float height, float zNear, float zFar) {
+		this.perspective = new Matrix4f().initPerspectiveProjection(fov, width, height, zNear, zFar);
 	}
 	
 	public Vector3f getTranslationVector() {

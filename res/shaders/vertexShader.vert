@@ -13,5 +13,5 @@ void main()
 	gl_Position = transformation * vec4(position, 1);
 	texCoord = texCoordIn;
 	
-	outColor = vec3(1.6,1,1);
+	outColor = vec3(1,1,1);
 }

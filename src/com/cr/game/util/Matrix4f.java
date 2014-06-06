@@ -107,7 +107,7 @@ public class Matrix4f {
 	 * @param far
 	 * @return this matrix transformed to the orthographic projection matrix
 	 */
-	public Matrix4f initProjectionOrtho(float left, float right, float bottom, float top, float near, float far){
+	public Matrix4f initOrthographicProjection(float left, float right, float bottom, float top, float near, float far){
 		float width = right - left;
 		float height = top - bottom;
 		float depth = far - near;
@@ -119,6 +119,20 @@ public class Matrix4f {
 
 		return this;
 	}
+	
+	public Matrix4f initPerspectiveProjection(float fov, float width, float height, float zNear, float zFar){
+		float aspectRatio = width/height;
+		float tanHalfFOV = (float)Math.tan(fov / 2);
+		float zRange = zNear - zFar;
+
+		matrix[0][0] = 1.0f / (tanHalfFOV * aspectRatio);	matrix[0][1] = 0;					matrix[0][2] = 0;						matrix[0][3] = 0;
+		matrix[1][0] = 0;									matrix[1][1] = 1.0f / tanHalfFOV;	matrix[1][2] = 0;						matrix[1][3] = 0;
+		matrix[2][0] = 0;									matrix[2][1] = 0;					matrix[2][2] = (-zNear -zFar)/zRange;	matrix[2][3] = 2 * zFar * zNear / zRange;
+		matrix[3][0] = 0;									matrix[3][1] = 0;					matrix[3][2] = 1;						matrix[3][3] = 0;
+
+		return this;
+	}
+
 	
 	/**
 	 * Performs matrix multiplication between this matrix and the given

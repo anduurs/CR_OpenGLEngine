@@ -15,7 +15,7 @@ public class Game extends CoreEngine{
 	private Screen screen;
 	
 	public Game(){
-		boolean fullscreen = false;
+		boolean fullscreen = true;
 		Window.createWindow(1200, 675, fullscreen);
 		init();
 	}

@@ -12,6 +12,11 @@ public class ImageLoader {
 			new HashMap<String, BufferedImage>();
 	
 	public ImageLoader(){
+		
+		//----------------------------Texture Atlases --------------------------//
+		imageLib.put("tileatlas", loadImage("/tiles/tileatlas.png"));
+		//----------------------------------------------------------------------//
+		
 		//----------------------------Tiles-------------------------------------//
 		imageLib.put("grass", loadImage("/tiles/grass.png"));
 		imageLib.put("grass2", loadImage("/tiles/grass2.png"));

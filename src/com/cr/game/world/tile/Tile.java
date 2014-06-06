@@ -7,13 +7,13 @@ public abstract class Tile {
 	private Texture texture;
 	
 	private static int width, height;
-	protected boolean solid;
+	protected boolean walkable;
 	
 	public Tile(String imageString){
 		texture = new Texture(imageString);
 		width = texture.getWidth();
 		height = texture.getHeight();
-		solid = true;
+		walkable = true;
 	}
 
 	public Texture getTexture() {
@@ -28,8 +28,8 @@ public abstract class Tile {
 		return height;
 	}
 
-	public boolean isSolid() {
-		return solid;
+	public boolean isWalkable() {
+		return walkable;
 	}
 
 }

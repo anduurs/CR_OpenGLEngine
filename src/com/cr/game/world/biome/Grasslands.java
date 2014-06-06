@@ -14,6 +14,7 @@ import com.cr.game.world.tile.StoneTile;
 import com.cr.game.world.tile.WaterTile;
 
 public class Grasslands{
+	
 	private final float LAKE_WEIGHT = 1.8f, LAKE_LOSS = 0.05f;
 	private final int LAKE_COUNT = 3;
 	
@@ -34,10 +35,10 @@ public class Grasslands{
 		topLayer    = new TileLayer(width, height, transform);
 		
 		bottomLayer.addTileType(ColorRGBA.BLUE, new WaterTile());
-		bottomLayer.addTileType(ColorRGBA.GRAY, new StoneTile());
+//		bottomLayer.addTileType(ColorRGBA.GRAY, new StoneTile());
 		
 		middleLayer.addTileType(ColorRGBA.BROWN, new DirtTile());
-		middleLayer.addTileType(ColorRGBA.YELLOW, new SandTile());
+//		middleLayer.addTileType(ColorRGBA.YELLOW, new SandTile());
 		//middleLayer.addTileType(ColorRGBA.GRAY, new StoneTile());
 		
 		topLayer.addTileType(ColorRGBA.GREEN, new GrassTile());

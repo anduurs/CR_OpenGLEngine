@@ -112,12 +112,6 @@ public class TileLayer {
 		return col;
 	}
 	
-	public boolean validID(int x, int y){
-		if(x < 0 || y < 0 || x >= width || y >= height)
-			return false;
-		return true;
-	}
-	
 	public int getTileID(int x, int y){
 		return bitmap.getPixel(x, y);
 	}
@@ -130,7 +124,7 @@ public class TileLayer {
 		return tiles.get(color);
 	}
 	
-	public boolean shouldRender(int x, int y){
+	public boolean tileExists(int x, int y){
 		if(x < 0 || y < 0 || x >= width || y >= height)
 			return false;
 		if(tiles.containsKey(bitmap.getPixel(x, y)))
@@ -140,8 +134,10 @@ public class TileLayer {
 	
 	public void renderTileLayer(float xScroll, float yScroll, float depth){
 		transform.translate(-xScroll, -yScroll, depth);
+		transform.scale(0.7f, 0.7f, 0);
+		//transform.rotate(0, 0, xScroll-width/2);
 		shader.bind();
-		shader.setUniform("transformation", transform.getFullTransformation());
+		shader.setUniform("transformation", transform.getOrthoTransformation());
 		tiles.get(getTileID()).getTexture().bind();
 		mesh.render();
 		tiles.get(getTileID()).getTexture().unbind();

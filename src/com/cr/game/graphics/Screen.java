@@ -11,7 +11,7 @@ public class Screen {
 	}
 	
 	private void initGL(){
-		glClearColor(0f,0f,0.2f,0f);
+		glClearColor(0f,0f,0f,0f);
 	
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_ALPHA);
