@@ -17,7 +17,7 @@ public class Game extends CoreEngine{
 	private GameStateManager gsm;
 	
 	public Game(){
-		Window.createWindow(WIDTH, HEIGHT);
+		Window.createWindow(WIDTH, HEIGHT, false);
 		new ImageLoader();
 		
 		gsm = new GameStateManager();

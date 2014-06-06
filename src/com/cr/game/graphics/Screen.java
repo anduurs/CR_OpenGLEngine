@@ -26,15 +26,16 @@ public class Screen {
 	}
 	
 	private void initGL(){
-		glClearColor(0f,0f,0f,0f);
+		glClearColor(0f,0f,0.2f,0f);
 	
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_ALPHA);
 		glEnable(GL_BLEND);
-		glCullFace(GL_BACK);
 		glEnable(GL_CULL_FACE);
 		//glEnable(GL_DEPTH_TEST);
+		
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glCullFace(GL_BACK);
 	}
 	
 	public void render(GameStateManager gsm){

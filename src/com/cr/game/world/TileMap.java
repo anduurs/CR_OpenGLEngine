@@ -84,7 +84,7 @@ public class TileMap {
 //		dirtLayer.removeTile(50, 50);
 	}
 	
-	public void renderMap(Screen screen, int xScroll, int yScroll){
+	public void renderMap(Screen screen, float xScroll, float yScroll){
 		
 //		int x0 = xScroll / Tile.TILE_WIDTH;
 //		int x1 = (xScroll + Window.getWidth() + Tile.TILE_WIDTH) / Tile.TILE_WIDTH;
@@ -100,8 +100,8 @@ public class TileMap {
 //			}
 		
 		
-		dirtLayer.renderTileLayer(screen, xScroll, yScroll);
-		grassLayer.renderTileLayer(screen, xScroll, yScroll);		
+		dirtLayer.renderTileLayer(screen, xScroll, yScroll, 0f);
+		grassLayer.renderTileLayer(screen, xScroll, yScroll, 1f);		
 	}
 	
 	public int getWidth(){

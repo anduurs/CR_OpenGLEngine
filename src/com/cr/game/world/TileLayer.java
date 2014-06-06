@@ -127,8 +127,8 @@ public class TileLayer {
 		return false;
 	}
 	
-	public void renderTileLayer(Screen screen, int xScroll, int yScroll){
-		transform.translate(-xScroll, -yScroll, 0);
+	public void renderTileLayer(Screen screen, float xScroll, float yScroll, float depth){
+		transform.translate(-xScroll, -yScroll, depth);
 		shader.bind();
 		shader.updateUniform("transformation", transform.getFullTransformation());
 		tiles.get(getTileID()).getTexture().bind();

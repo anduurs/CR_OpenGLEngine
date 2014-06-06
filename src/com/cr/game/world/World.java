@@ -10,7 +10,7 @@ public class World {
 	private TileMap map;
 	
 	private Camera camera;
-	private int xScroll, yScroll;
+	private float xScroll, yScroll;
 	
 	private int width, height;
 	
@@ -35,12 +35,12 @@ public class World {
 		else timer = 0;
 		
 		if(camera.getPos().x < 0) camera.getPos().x = 0;
-		if(camera.getPos().x > ((width*Tile.TILE_WIDTH) - camera.getWidth()))
-			camera.getPos().x = (width*Tile.TILE_WIDTH) - camera.getWidth();
+		if(camera.getPos().x > ((width*Tile.getWidth()) - camera.getWidth()))
+			camera.getPos().x = (width*Tile.getWidth()) - camera.getWidth();
 		
 		if(camera.getPos().y < 0) camera.getPos().y = 0;
-		if(camera.getPos().y > ((height*Tile.TILE_HEIGHT) - camera.getHeight()))
-			camera.getPos().y = (height*Tile.TILE_HEIGHT) - camera.getHeight();
+		if(camera.getPos().y > ((height*Tile.getHeight()) - camera.getHeight()))
+			camera.getPos().y = (height*Tile.getHeight()) - camera.getHeight();
 		
 		camera.setCamX(EntityManager.getHero().getX() - (camera.getWidth()/2 - EntityManager.getHero().getWidth()));
 		camera.setCamY(EntityManager.getHero().getY() - (camera.getHeight()/2 - EntityManager.getHero().getHeight()));
@@ -49,8 +49,8 @@ public class World {
 	}
 
 	public void render(Screen screen) {
-		xScroll = (int) (Camera.getCamX());
-		yScroll = (int) (Camera.getCamY());
+		xScroll = Camera.getCamX();
+		yScroll = Camera.getCamY();
 		
 		map.renderMap(screen, xScroll, yScroll);
 		

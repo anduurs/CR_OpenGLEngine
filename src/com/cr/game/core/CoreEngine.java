@@ -47,16 +47,12 @@ public abstract class CoreEngine {
 				accumulator -= OPTIMAL_TICK_TIME;
 			}
 			
-			if(shouldRender){
-				render();
-				fps++;
-				Window.update();
-			}
-		
-			
-
+			render();
+			fps++;
+			Window.update();
+	
 			if(frameCounter >= 1){
-				Window.setTitle("OpenGL Test" + " || " + fps + " fps");
+				Window.setTitle("OpenGL GameEngine" + " || " + fps + " fps");
 				fps = 0;
 				frameCounter = 0;
 			}

@@ -8,16 +8,29 @@ import org.lwjgl.opengl.DisplayMode;
 
 public class Window {
 	
-	public static void createWindow(int width, int height){
-		try {
-			Display.setDisplayMode(new DisplayMode(width, height));
-			Display.setVSyncEnabled(true);
-			Display.create();
-			Keyboard.create();
-			Mouse.create();
-		} catch (LWJGLException e) {
-			e.printStackTrace();
+	public static void createWindow(int width, int height, boolean fullscreen){
+		if(fullscreen){
+			try {
+				Display.setFullscreen(true);
+				Display.setVSyncEnabled(true);
+				Display.create();
+				Keyboard.create();
+				Mouse.create();
+			} catch (LWJGLException e) {
+				e.printStackTrace();
+			}
+		}else{
+			try {
+				Display.setDisplayMode(new DisplayMode(width, height));
+				//Display.setVSyncEnabled(true);
+				Display.create();
+				Keyboard.create();
+				Mouse.create();
+			} catch (LWJGLException e) {
+				e.printStackTrace();
+			}
 		}
+		
 	}
 	
 	public static void setTitle(String title){
