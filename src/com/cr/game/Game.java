@@ -5,8 +5,8 @@ import com.cr.game.core.GameStateManager;
 import com.cr.game.core.Window;
 import com.cr.game.graphics.Screen;
 import com.cr.game.input.Input;
-import com.cr.game.resource.ImageLoader;
 import com.cr.game.state.PlayState;
+import com.cr.game.util.ImageLoader;
 
 public class Game extends CoreEngine{
 	

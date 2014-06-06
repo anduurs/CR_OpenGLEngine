@@ -1,7 +1,8 @@
 package com.cr.game.graphics;
 
 import java.awt.image.BufferedImage;
-import com.cr.game.resource.ImageLoader;
+
+import com.cr.game.util.ImageLoader;
 
 /**
  * Class for representing a bitmap with a pixel array.
@@ -18,8 +19,8 @@ public class Bitmap {
 	 * Creates a new bitmap from the given filepath
 	 * @param fileName the file path for the bitmap
 	 */
-	public Bitmap(String fileName){
-		BufferedImage img = ImageLoader.loadImage(fileName);
+	public Bitmap(String name){
+		BufferedImage img = ImageLoader.getImage(name);
 		width = img.getWidth();
 		height = img.getHeight();
 		pixels = new int[width*height];

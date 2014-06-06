@@ -127,35 +127,16 @@ public class TileLayer {
 		return false;
 	}
 	
-//	public void renderTileLayer(Screen screen, int xScroll, int yScroll){
-//
-//		int x0 = xScroll / Tile.TILE_WIDTH;
-//		int x1 = (xScroll + Window.getWidth() + Tile.TILE_WIDTH) / Tile.TILE_WIDTH;
-//		int y0 = yScroll / Tile.TILE_HEIGHT;
-//		int y1 = (yScroll + Window.getHeight() + Tile.TILE_HEIGHT) / Tile.TILE_HEIGHT;
-//		
-//		glBindTexture(GL_TEXTURE_2D, tiles.get(getTileID()).getSprite().getTexID());
-//		
-//		for(int y = y0; y < y1; y++)
-//			for(int x = x0; x < x1; x++)
-//				if(shouldRender(x, y))
-//					getTile(x, y).render(screen, x, y, xScroll, yScroll);	
-//		
-//		glBindTexture(GL_TEXTURE_2D, 0);
-//	}
-	
 	public void renderTileLayer(Screen screen, int xScroll, int yScroll){
-		
 		transform.translate(-xScroll, -yScroll, 0);
 		shader.bind();
-		shader.updateUniform("transformation", transform.getOrthoProjection());
+		shader.updateUniform("transformation", transform.getFullTransformation());
 		tiles.get(getTileID()).getTexture().bind();
 
 		mesh.render();
 		
 		tiles.get(getTileID()).getTexture().unbind();
 		shader.unbind();
-		
 	}
 	
 	public void generateTileLayer(){
@@ -165,11 +146,16 @@ public class TileLayer {
 		for(int y = 0; y < height; y++){
 			for(int x = 0; x < width; x++){
 				
+				if(pixels[x+y*width] == 0) continue;
+				
 				float tWidth = tiles.get(getTileID()).getTexture().getWidth();
 				float tHeight = tiles.get(getTileID()).getTexture().getHeight();
 				
-				float xPos = x * tWidth;
-				float yPos = y * tHeight;
+				float xPos = x * tWidth ;
+				float yPos = y * tHeight ;
+				
+				float xOffset = 9.5f;
+				float yOffset = 7.5f;
 				
 				indices.add(vertices.size() + 0);
 				indices.add(vertices.size() + 1);
@@ -180,11 +166,9 @@ public class TileLayer {
 				indices.add(vertices.size() + 0);
 				
 				vertices.add(new Vertex(new Vector3f(xPos, yPos, 0), new Vector2f(0,0)));
-				vertices.add(new Vertex(new Vector3f(xPos, yPos + tHeight, 0), new Vector2f(0,1)));
-				vertices.add(new Vertex(new Vector3f(xPos + tWidth, yPos + tHeight, 0), new Vector2f(1,1)));
-				vertices.add(new Vertex(new Vector3f(xPos + tWidth, yPos, 0), new Vector2f(1,0)));
-			
-				
+				vertices.add(new Vertex(new Vector3f(xPos, yPos + tHeight + yOffset, 0), new Vector2f(0,1)));
+				vertices.add(new Vertex(new Vector3f(xPos + tWidth + xOffset , yPos + tHeight + yOffset, 0), new Vector2f(1,1)));
+				vertices.add(new Vertex(new Vector3f(xPos + tWidth + xOffset , yPos, 0), new Vector2f(1,0)));
 			}
 		}
 		

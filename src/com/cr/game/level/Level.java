@@ -64,7 +64,7 @@ public class Level {
 	public void render(float xScroll, float yScroll){
 		transform.translate(xScroll, yScroll, 0);
 		shader.bind();
-		shader.updateUniform("transformation", transform.getOrthoProjection());
+		shader.updateUniform("transformation", transform.getFullTransformation());
 		tile.getTexture().bind();
 
 		mesh.render();

@@ -50,8 +50,8 @@ public class TileMap {
 //		stoneLayer = new TileLayer(ImageLoader.getImage("stonelayer"));
 //		waterLayer = new TileLayer(ImageLoader.getImage("waterlayer"));
 //		sandLayer = new TileLayer(ImageLoader.getImage("sandlayer"));
-		grassLayer = new TileLayer(500, 500);
-//		dirtLayer = new TileLayer(50, 50);
+		grassLayer = new TileLayer(100, 100);
+		dirtLayer = new TileLayer(100, 100);
 		
 		
 		
@@ -63,18 +63,21 @@ public class TileMap {
 //		waterLayer.addTile(ColorRGBA.BLUE, new WaterTile());
 //		sandLayer.addTile(ColorRGBA.ORANGE, new SandTile());
 		grassLayer.addTile(ColorRGBA.GREEN, new GrassTile());
-		grassLayer.generateTileLayer();
-		//dirtLayer.addTile(ColorRGBA.BROWN, new DirtTile());
+	
+		dirtLayer.addTile(ColorRGBA.BROWN, new DirtTile());
 		
 		for(int i = 0; i < grassLayer.pixels.length; i++){
 			grassLayer.pixels[i] = grassLayer.getTileID();
 		}
 		
-//		for(int i = 0; i < dirtLayer.pixels.length; i++){
-//			dirtLayer.pixels[i] = 0;
-//		}
+		for(int i = 0; i < dirtLayer.pixels.length; i++){
+			dirtLayer.pixels[i] = dirtLayer.getTileID();
+		}
 	
-//		grassLayer.removeTile(10, 10);
+		grassLayer.removeTile(10, 10);
+		
+		grassLayer.generateTileLayer();
+		dirtLayer.generateTileLayer();
 //		grassLayer.removeTile(11, 10);
 //		grassLayer.removeTile(11, 11);
 //		grassLayer.removeTile(10, 11);
@@ -87,7 +90,7 @@ public class TileMap {
 //		int x1 = (xScroll + Window.getWidth() + Tile.TILE_WIDTH) / Tile.TILE_WIDTH;
 //		int y0 = yScroll / Tile.TILE_HEIGHT;
 //		int y1 = (yScroll + Window.getHeight() + Tile.TILE_HEIGHT) / Tile.TILE_HEIGHT;
-//		
+		
 //		for(int y = y0; y < y1; y++)
 //			for(int x = x0; x < x1; x++){
 //				if(grassLayer.validID(x, y))
@@ -97,7 +100,7 @@ public class TileMap {
 //			}
 		
 		
-		//dirtLayer.renderTileLayer(screen, xScroll, yScroll);
+		dirtLayer.renderTileLayer(screen, xScroll, yScroll);
 		grassLayer.renderTileLayer(screen, xScroll, yScroll);		
 	}
 	
