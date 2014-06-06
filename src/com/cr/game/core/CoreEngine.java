@@ -1,5 +1,9 @@
 package com.cr.game.core;
 
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClear;
+
 
 public abstract class CoreEngine {
 	
@@ -13,14 +17,14 @@ public abstract class CoreEngine {
 	
 	protected synchronized void start(){
 		running = true;
-		run();
+		gameLoop();
 	}
 	
 	protected synchronized void stop(){
 		running = false;
 	}
 	
-	private void run(){
+	private void gameLoop(){
 		double currentTime = 0;
 		double previousTime = System.nanoTime();
 		double passedTime = 0;

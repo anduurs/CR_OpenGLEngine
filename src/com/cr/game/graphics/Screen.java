@@ -1,27 +1,25 @@
 package com.cr.game.graphics;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_BACK;
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.opengl.GL11.glCullFace;
+import static org.lwjgl.opengl.GL11.glEnable;
+
 import com.cr.game.core.GameStateManager;
-import com.cr.game.util.Transform;
 
 public class Screen {
 	
-	private Shader shader;
-	private Transform transform;
-
 	public Screen(){
-//		shader = new Shader();
-//		
-//		shader.addVertexShader("vertexShader");
-//		shader.addFragmentShader("fragmentShader");
-//		shader.createShaderProgram();
-//		
-//		shader.addUniform("transformation");
-//		shader.addUniform("sampler");
-//		shader.updateUniformi("sampler", 0);
-//		
-//		transform = new Transform();
-		
 		initGL();
 	}
 	
@@ -47,19 +45,11 @@ public class Screen {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 	
-//	public void renderSprite(Sprite sprite, float x, float y){
-//		transform.translate(x, y, 0);
-//	
-//		shader.bind();
-//			shader.updateUniform("transformation", transform.getOrthoProjection());
-//			sprite.bind();
-//				glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0);
-//			sprite.unbind();
-//		shader.unbind();
-//	}
-	
-	public void cleanUp(){
-		//shader.deleteShader();
+	public void renderSprite(Sprite sprite, float x, float y){
+		sprite.getTransform().translate(x, y, 0);
+		sprite.bind();
+		sprite.getMesh().render();
+		sprite.unbind();
 	}
 
 }

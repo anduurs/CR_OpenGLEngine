@@ -2,33 +2,41 @@ package com.cr.game.world;
 
 import com.cr.game.core.EntityManager;
 import com.cr.game.graphics.Screen;
+import com.cr.game.graphics.Shader;
 import com.cr.game.util.Camera;
 import com.cr.game.world.tile.Tile;
 
 public class World {
 	
-	private TileMap map;
-	
-	private Camera camera;
-	private float xScroll, yScroll;
-	
 	private int width, height;
+	private int timer = 0;
 	
+	private TileMap map;
+	private Camera camera;
 	private EntityManager em;
 
+	private static Shader shader;
+	
 	public World(){
-		
 		camera = new Camera(0, 0);
-		map = new TileMap();
+		map = new TileMap(100, 100);
 
 		width = map.getWidth();
 		height = map.getHeight();
 		
-		em = new EntityManager();
 		
+		shader = new Shader();
+		
+		shader.addVertexShader("vertexShader");
+		shader.addFragmentShader("fragmentShader");
+		shader.createShaderProgram();
+		
+		shader.addUniform("transformation");
+		shader.addUniform("sampler");
+		shader.updateUniformi("sampler", 0);
+		
+		em = new EntityManager();
 	}
-	
-	int timer = 0;
 	
 	public void tick(float dt){
 		if(timer < 7500) timer++;
@@ -49,12 +57,15 @@ public class World {
 	}
 
 	public void render(Screen screen) {
-		xScroll = Camera.getCamX();
-		yScroll = Camera.getCamY();
+		float xScroll = Camera.getCamX();
+		float yScroll = Camera.getCamY();
 		
-		map.renderMap(screen, xScroll, yScroll);
-		
-//		em.render(screen);
+		map.renderMap(xScroll, yScroll);
+		em.render(screen);
+	}
+
+	public static Shader getShader() {
+		return shader;
 	}
 
 }

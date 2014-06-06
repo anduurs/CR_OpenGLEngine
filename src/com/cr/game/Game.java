@@ -13,16 +13,14 @@ public class Game extends CoreEngine{
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 675;
 	
-	private Screen screen;
 	private GameStateManager gsm;
+	private Screen screen;
 	
 	public Game(){
 		Window.createWindow(WIDTH, HEIGHT, false);
 		new ImageLoader();
-		
-		gsm = new GameStateManager();
 		screen = new Screen();
-		
+		gsm = new GameStateManager();
 		gsm.push(new PlayState(gsm));
 	}
 
@@ -43,7 +41,7 @@ public class Game extends CoreEngine{
 	
 	@Override
 	public void cleanUp() {
-		screen.cleanUp();
+		
 	}
 	
 	public static void main(String[] args){

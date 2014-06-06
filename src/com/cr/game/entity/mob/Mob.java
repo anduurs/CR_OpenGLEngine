@@ -1,14 +1,11 @@
 package com.cr.game.entity.mob;
 
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.glBindTexture;
-
 import com.cr.game.entity.Entity;
 import com.cr.game.entity.Renderable;
 import com.cr.game.entity.Tickable;
 import com.cr.game.graphics.Screen;
 import com.cr.game.graphics.Sprite;
-import com.cr.game.util.Camera;
+import com.cr.game.util.Transform;
 import com.cr.game.util.Vector2f;
 
 public abstract class Mob extends Entity implements Tickable, Renderable{
@@ -16,6 +13,8 @@ public abstract class Mob extends Entity implements Tickable, Renderable{
 	protected float speedX, speedY;
 	protected Vector2f velocity;
 	protected Sprite sprite;
+	
+	protected Transform transform;
 	
 	protected enum Direction{
 		NORTH, SOUTH, EAST, WEST;
@@ -25,7 +24,7 @@ public abstract class Mob extends Entity implements Tickable, Renderable{
 	
 	public Mob(Vector2f position) {
 		super(position);
-		
+		transform = new Transform();
 	}
 
 	protected float approach(float target, float current, float dt){
@@ -48,9 +47,7 @@ public abstract class Mob extends Entity implements Tickable, Renderable{
 	
 	@Override
 	public void render(Screen screen) {
-//		glBindTexture(GL_TEXTURE_2D, sprite.getTexID());
-//		screen.renderSprite(sprite, position.x - Camera.getCamX(), position.y - Camera.getCamY());
-//		glBindTexture(GL_TEXTURE_2D, 0);
+		screen.renderSprite(sprite, position.x, position.y);
 	}
 
 	public Vector2f getVelocity() {

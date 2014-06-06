@@ -5,6 +5,7 @@ import com.cr.game.entity.mob.Mob;
 import com.cr.game.graphics.Sprite;
 import com.cr.game.input.Input;
 import com.cr.game.util.Vector2f;
+import com.cr.game.world.World;
 
 public class Hero extends Mob implements Collideable{
 	
@@ -14,7 +15,7 @@ public class Hero extends Mob implements Collideable{
 	public Hero(Vector2f position) {
 		super(position);
 		
-		sprite = new Sprite("hero");
+		sprite = new Sprite("hero", World.getShader(), transform);
 		
 		width = sprite.getWidth();
 		height = sprite.getHeight();
