@@ -33,10 +33,23 @@ public class Mesh {
 	
 	public Mesh(Vertex[] vertices, int[] indices){
 		size = 0;
-		addVertices(vertices, indices);
+		sendStaticData(vertices, indices);
 	}
 	
-	private void addVertices(Vertex[] vertices, int[] indices){
+	public Mesh(Vertex[] vertices, int[] indices, boolean dynamicData){
+		size = 0;
+		if(dynamicData){
+			sendDynamicData(vertices, indices);
+		}else{
+			sendStaticData(vertices, indices);
+		}
+	}
+	
+	private void sendDynamicData(Vertex[] vertices, int[] indices){
+		
+	}
+	
+	private void sendStaticData(Vertex[] vertices, int[] indices){
 		
 		vertexBuffer = BufferUtils.createFloatBuffer(Vertex.VERTEX_SIZE * vertices.length);
 		
@@ -66,6 +79,9 @@ public class Mesh {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboID);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer, GL_STATIC_DRAW);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		
+		vertexBuffer = null;
+		indexBuffer = null;
 		
 		vaoID = glGenVertexArrays();
 		glBindVertexArray(vaoID);

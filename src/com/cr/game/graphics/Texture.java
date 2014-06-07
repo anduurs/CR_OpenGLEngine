@@ -74,6 +74,7 @@ public class Texture {
 		//send the texture data to the gpu
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 		
+		buffer = null;
 		
 			
 		glBindTexture(GL_TEXTURE_2D, 0);

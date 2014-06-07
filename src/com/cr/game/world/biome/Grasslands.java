@@ -29,17 +29,21 @@ public class Grasslands{
 	
 	private TileLayer bottomLayer, middleLayer, topLayer;
 	
+	private int width, height;
+	
 	public Grasslands(int width, int height, Transform transform){
+		this.width = width;
+		this.height = height;
 		bottomLayer = new TileLayer(width, height, transform);
 		middleLayer = new TileLayer(width, height, transform);
 		topLayer    = new TileLayer(width, height, transform);
 		
 		bottomLayer.addTileType(ColorRGBA.BLUE, new WaterTile());
-//		bottomLayer.addTileType(ColorRGBA.GRAY, new StoneTile());
+		bottomLayer.addTileType(ColorRGBA.GRAY, new StoneTile());
 		
 		middleLayer.addTileType(ColorRGBA.BROWN, new DirtTile());
-//		middleLayer.addTileType(ColorRGBA.YELLOW, new SandTile());
-		//middleLayer.addTileType(ColorRGBA.GRAY, new StoneTile());
+		middleLayer.addTileType(ColorRGBA.YELLOW, new SandTile());
+		middleLayer.addTileType(ColorRGBA.GRAY, new StoneTile());
 		
 		topLayer.addTileType(ColorRGBA.GREEN, new GrassTile());
 		
@@ -55,12 +59,12 @@ public class Grasslands{
 		int bottomPixels[] = bottomLayer.getBitmap().getPixels();
 		for(int i = 0; i < bottomPixels.length; i++)
 			if(bottomPixels[i] == 0)
-				bottomLayer.setTile(i % 100, i / 100, ColorRGBA.GRAY);
+				bottomLayer.setTile(i % width, i / height, ColorRGBA.GRAY);
 		
 		int middlePixels[] = middleLayer.getBitmap().getPixels();
 		for(int i = 0; i < middlePixels.length; i++)
 			if(middlePixels[i] == 0 && bottomPixels[i] != ColorRGBA.BLUE)
-				middleLayer.setTile(i % 100, i / 100, ColorRGBA.GRAY);
+				middleLayer.setTile(i % width, i / height, ColorRGBA.GRAY);
 	}
 
 	private void generateLakes(int worldWidth, int worldHeight){

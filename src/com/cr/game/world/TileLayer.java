@@ -11,7 +11,12 @@ import com.cr.game.util.Transform;
 import com.cr.game.util.Vector2f;
 import com.cr.game.util.Vector3f;
 import com.cr.game.util.Vertex;
+import com.cr.game.world.tile.DirtTile;
+import com.cr.game.world.tile.GrassTile;
+import com.cr.game.world.tile.SandTile;
+import com.cr.game.world.tile.StoneTile;
 import com.cr.game.world.tile.Tile;
+import com.cr.game.world.tile.WaterTile;
 
 public class TileLayer {
 	
@@ -51,12 +56,55 @@ public class TileLayer {
 		List<Vertex> vertices = new ArrayList<Vertex>();
 		List<Integer> indices = new ArrayList<Integer>();
 		
-		float tWidth = tiles.get(getTileID()).getTexture().getWidth();
-		float tHeight = tiles.get(getTileID()).getTexture().getHeight();
+		float tWidth = Tile.getWidth();
+		float tHeight = Tile.getHeight();
 		
 		for(int y = 0; y < height; y++){
 			for(int x = 0; x < width; x++){
 				if(bitmap.getPixel(x, y) == 0) continue;
+				
+				float xLow = 0;
+				float xHigh = 0;
+				float yLow = 0;
+				float yHigh = 0;
+				
+				
+				if(tiles.get(bitmap.getPixel(x, y)) instanceof WaterTile){
+					xLow= 0.5f;
+					xHigh= 0.75f;
+					yLow= 0;
+					yHigh= 0.25f;
+				}
+				
+				if(tiles.get(bitmap.getPixel(x, y)) instanceof StoneTile){
+					xLow= 0.75f;
+					xHigh= 1f;
+					yLow= 0;
+					yHigh= 0.25f;
+				}
+				
+				if(tiles.get(bitmap.getPixel(x, y)) instanceof DirtTile){
+					xLow= 0f;
+					xHigh= 0.25f;
+					yLow= 0;
+					yHigh= 0.25f;
+				}
+				
+				if(tiles.get(bitmap.getPixel(x, y)) instanceof GrassTile){
+					xLow= 0.25f;
+					xHigh= 0.5f;
+					yLow= 0;
+					yHigh= 0.25f;
+				}
+				
+				if(tiles.get(bitmap.getPixel(x, y)) instanceof SandTile){
+					xLow= 0;
+					xHigh= 0.25f;
+					yLow= 0.25f;
+					yHigh= 0.5f;
+				}
+				
+				
 				
 				float xPos = x * tWidth ;
 				float yPos = y * tHeight ;
@@ -72,10 +120,10 @@ public class TileLayer {
 				indices.add(vertices.size() + 3);
 				indices.add(vertices.size() + 0);
 				
-				vertices.add(new Vertex(new Vector3f(xPos, yPos, 0), new Vector2f(0,0)));
-				vertices.add(new Vertex(new Vector3f(xPos, yPos + tHeight + yOffset, 0), new Vector2f(0,1)));
-				vertices.add(new Vertex(new Vector3f(xPos + tWidth + xOffset , yPos + tHeight + yOffset, 0), new Vector2f(1,1)));
-				vertices.add(new Vertex(new Vector3f(xPos + tWidth + xOffset , yPos, 0), new Vector2f(1,0)));
+				vertices.add(new Vertex(new Vector3f(xPos, yPos, 0), new Vector2f(xLow,yLow)));
+				vertices.add(new Vertex(new Vector3f(xPos, yPos + tHeight + yOffset, 0), new Vector2f(xLow,yHigh)));
+				vertices.add(new Vertex(new Vector3f(xPos + tWidth + xOffset , yPos + tHeight + yOffset, 0), new Vector2f(xHigh,yHigh)));
+				vertices.add(new Vertex(new Vector3f(xPos + tWidth + xOffset , yPos, 0), new Vector2f(xHigh,yLow)));
 			}
 		}
 		
@@ -91,6 +139,18 @@ public class TileLayer {
 			iArray[i] = indexArray[i];
 		
 		mesh = new Mesh(vertexArray, iArray);
+	}
+	
+	public void renderTileLayer(float xScroll, float yScroll, float depth){
+		transform.translate(-xScroll, -yScroll, depth);
+		transform.scale(0.25f, 0.25f, 0);
+		//transform.rotate(0, 0, xScroll-width/2);
+		shader.bind();
+		shader.setUniform("transformation", transform.getOrthoTransformation());
+		Tile.getTexture().bind();
+		mesh.render();
+		Tile.getTexture().unbind();
+		shader.unbind();
 	}
 	
 	public void addTileType(int color, Tile tile){
@@ -132,17 +192,7 @@ public class TileLayer {
 		return false;
 	}
 	
-	public void renderTileLayer(float xScroll, float yScroll, float depth){
-		transform.translate(-xScroll, -yScroll, depth);
-		transform.scale(0.7f, 0.7f, 0);
-		//transform.rotate(0, 0, xScroll-width/2);
-		shader.bind();
-		shader.setUniform("transformation", transform.getOrthoTransformation());
-		tiles.get(getTileID()).getTexture().bind();
-		mesh.render();
-		tiles.get(getTileID()).getTexture().unbind();
-		shader.unbind();
-	}
+
 	
 	public int getWidth(){
 		return width;

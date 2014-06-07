@@ -4,10 +4,16 @@ import com.cr.game.graphics.Texture;
 
 public abstract class Tile {
 	
-	private Texture texture;
+	private static Texture texture = new Texture("tileatlas");
 	
 	private static int width, height;
 	protected boolean walkable;
+	
+	public Tile(){
+		width = texture.getWidth();
+		height = texture.getHeight();
+		walkable = true;
+	}
 	
 	public Tile(String imageString){
 		texture = new Texture(imageString);
@@ -16,7 +22,7 @@ public abstract class Tile {
 		walkable = true;
 	}
 
-	public Texture getTexture() {
+	public static Texture getTexture() {
 		return texture;
 	}
 	
