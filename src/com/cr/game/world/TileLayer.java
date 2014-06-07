@@ -29,6 +29,8 @@ public class TileLayer {
 	private float yLow = 0;
 	private float yHigh = 0;
 	
+	private float scaleFactor = 0.25f;
+	
 	public TileLayer(int width, int height, Transform transform){
 		bitmap = new Bitmap(width, height);
 		
@@ -56,8 +58,8 @@ public class TileLayer {
 		List<Vertex> vertices = new ArrayList<Vertex>();
 		List<Integer> indices = new ArrayList<Integer>();
 		
-		float tWidth = Tile.getWidth();
-		float tHeight = Tile.getHeight();
+		float tWidth = Tile.getAtlasWidth();
+		float tHeight = Tile.getAtlasHeight();
 		
 		for(int y = 0; y < height; y++){
 			for(int x = 0; x < width; x++){
@@ -102,7 +104,7 @@ public class TileLayer {
 	
 	public void renderTileLayer(float xScroll, float yScroll, float depth){
 		transform.translate(-xScroll, -yScroll, depth);
-		transform.scale(0.20f, 0.20f, 0);
+		transform.scale(scaleFactor, scaleFactor, 0);
 		//transform.rotate(0, 0, xScroll-width/2);
 		shader.bind();
 		shader.setUniform("transformation", transform.getOrthoTransformation());

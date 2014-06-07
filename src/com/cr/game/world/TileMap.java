@@ -24,6 +24,8 @@ public class TileMap {
 		middleLayer = g.getMiddleLayer();
 		topLayer = g.getTopLayer();
 		
+		
+		
 		bottomLayer.generateTileLayer();
 		middleLayer.generateTileLayer();
 		topLayer.generateTileLayer();

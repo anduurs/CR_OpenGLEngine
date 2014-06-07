@@ -23,11 +23,19 @@ public abstract class Tile {
 		return texture;
 	}
 	
-	public static int getWidth() {
+	public static int getTileWidth() {
+		return (int) (width/TILE_ATLAS_ROWS);
+	}
+
+	public static int getTileHeight() {
+		return (int) (height / TILE_ATLAS_COLS);
+	}
+	
+	public static int getAtlasWidth() {
 		return width;
 	}
 
-	public static int getHeight() {
+	public static int getAtlasHeight() {
 		return height;
 	}
 

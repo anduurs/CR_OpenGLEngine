@@ -14,6 +14,8 @@ public class Hero extends Mob implements Collideable{
 	private Vector2f targetVel;
 	private float accSpeed = 3.5f;
 	
+	Direction d = currentDir; 
+	
 	public Hero(Vector2f position, World world) {
 		super(position, world);
 		
@@ -31,15 +33,19 @@ public class Hero extends Mob implements Collideable{
 	private void processInput(){
 		if(Input.getKey(Input.KEY_D)){
 			targetVel.x = 10f;
+			currentDir = Direction.EAST;
 		}
 		if(Input.getKey(Input.KEY_A)){
 			targetVel.x = -10f;
+			currentDir = Direction.WEST;
 		}
 		if(Input.getKey(Input.KEY_W)){
 			targetVel.y = -10f;
+			currentDir = Direction.NORTH;
 		}
 		if(Input.getKey(Input.KEY_S)){
 			targetVel.y = 10f;
+			currentDir = Direction.SOUTH;
 		}
 		
 		if(!Input.getKey(Input.KEY_W) && !Input.getKey(Input.KEY_S))
@@ -48,14 +54,31 @@ public class Hero extends Mob implements Collideable{
 			targetVel.x = 0;
 	}
 	
+	boolean dirChanged = false;
+	
 	@Override
 	public void tick(float dt){
+		
 		processInput();
+		
+	
+		
+		if(collisionWithTile(targetVel.x*dt,0)){
+			targetVel.x = 0;
+			
+		}
+		
+		if(collisionWithTile(0, targetVel.y*dt)){
+			
+			targetVel.y = 0;
+		}
+		
+	
 
-		velocity.x = approach(targetVel.x, velocity.x, dt*accSpeed);
-		velocity.y = approach(targetVel.y, velocity.y, dt*accSpeed);
+		velocity.x = approachTarget(targetVel.x, velocity.x, dt*accSpeed);
+		velocity.y = approachTarget(targetVel.y, velocity.y, dt*accSpeed);
 		//transform.rotate(0, 0, velocity.x);
-		transform.scale(0.5f, 0.5f, 0);
+		transform.scale(1f, 1f, 0);
 		move(dt);
 	}
 	
