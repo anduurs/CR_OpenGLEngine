@@ -31,8 +31,12 @@ public class World {
 		width = map.getWidth();
 		height = map.getHeight();
 		
-		em = new EntityManager();
+		em = new EntityManager(this);
 	}
+	
+//	public Tile getTile(int x, int y){
+//		
+//	}
 	
 	public void tick(float dt){
 		if(timer < 7500) timer++;

@@ -8,8 +8,11 @@ import com.cr.game.graphics.Sprite;
 import com.cr.game.util.Camera;
 import com.cr.game.util.Transform;
 import com.cr.game.util.Vector2f;
+import com.cr.game.world.World;
 
 public abstract class Mob extends Entity implements Tickable, Renderable{
+	
+	protected World world;
 
 	protected float speedX, speedY;
 	protected Vector2f velocity;
@@ -23,8 +26,9 @@ public abstract class Mob extends Entity implements Tickable, Renderable{
 	
 	protected static Direction currentDir;
 	
-	public Mob(Vector2f position) {
+	public Mob(Vector2f position, World world) {
 		super(position);
+		this.world = world;
 		transform = new Transform();
 	}
 

@@ -9,6 +9,7 @@ import com.cr.game.entity.Tickable;
 import com.cr.game.entity.mob.hero.Hero;
 import com.cr.game.graphics.Screen;
 import com.cr.game.util.Vector2f;
+import com.cr.game.world.World;
 
 public class EntityManager {
 	
@@ -18,14 +19,16 @@ public class EntityManager {
 	private static List<Renderable> deToAdd;
 	
 	private static Hero hero;
+	private World world;
 	
-	public EntityManager(){
+	public EntityManager(World world){
+		this.world = world;
 		tickableEntities = new ArrayList<Tickable>();
 		teToAdd = new ArrayList<Tickable>();
 		renderableEntities = new ArrayList<Renderable>();
 		deToAdd = new ArrayList<Renderable>();
 		
-		hero = new Hero(new Vector2f(50, 50));
+		hero = new Hero(new Vector2f(50, 50), world);
 	}
 	
 	public static void clear(){

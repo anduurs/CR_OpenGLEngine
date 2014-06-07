@@ -11,12 +11,7 @@ import com.cr.game.util.Transform;
 import com.cr.game.util.Vector2f;
 import com.cr.game.util.Vector3f;
 import com.cr.game.util.Vertex;
-import com.cr.game.world.tile.DirtTile;
-import com.cr.game.world.tile.GrassTile;
-import com.cr.game.world.tile.SandTile;
-import com.cr.game.world.tile.StoneTile;
 import com.cr.game.world.tile.Tile;
-import com.cr.game.world.tile.WaterTile;
 
 public class TileLayer {
 	
@@ -28,7 +23,12 @@ public class TileLayer {
 	private Transform transform;
 	
 	private HashMap<Integer, Tile> tiles;
-
+	
+	private float xLow = 0;
+	private float xHigh = 0;
+	private float yLow = 0;
+	private float yHigh = 0;
+	
 	public TileLayer(int width, int height, Transform transform){
 		bitmap = new Bitmap(width, height);
 		
@@ -63,49 +63,8 @@ public class TileLayer {
 			for(int x = 0; x < width; x++){
 				if(bitmap.getPixel(x, y) == 0) continue;
 				
-				float xLow = 0;
-				float xHigh = 0;
-				float yLow = 0;
-				float yHigh = 0;
-				
-				
-				if(tiles.get(bitmap.getPixel(x, y)) instanceof WaterTile){
-					xLow= 0.5f;
-					xHigh= 0.75f;
-					yLow= 0;
-					yHigh= 0.25f;
-				}
-				
-				if(tiles.get(bitmap.getPixel(x, y)) instanceof StoneTile){
-					xLow= 0.75f;
-					xHigh= 1f;
-					yLow= 0;
-					yHigh= 0.25f;
-				}
-				
-				if(tiles.get(bitmap.getPixel(x, y)) instanceof DirtTile){
-					xLow= 0f;
-					xHigh= 0.25f;
-					yLow= 0;
-					yHigh= 0.25f;
-				}
-				
-				if(tiles.get(bitmap.getPixel(x, y)) instanceof GrassTile){
-					xLow= 0.25f;
-					xHigh= 0.5f;
-					yLow= 0;
-					yHigh= 0.25f;
-				}
-				
-				if(tiles.get(bitmap.getPixel(x, y)) instanceof SandTile){
-					xLow= 0;
-					xHigh= 0.25f;
-					yLow= 0.25f;
-					yHigh= 0.5f;
-				}
-				
-				
-				
+				calcTexCoords(tiles.get(bitmap.getPixel(x, y)).getRow(), tiles.get(bitmap.getPixel(x, y)).getCol());
+			
 				float xPos = x * tWidth ;
 				float yPos = y * tHeight ;
 				
@@ -151,6 +110,13 @@ public class TileLayer {
 		mesh.render();
 		Tile.getTexture().unbind();
 		shader.unbind();
+	}
+	
+	private void calcTexCoords(float row, float col){
+		xLow = col / Tile.TILE_ATLAS_COLS;
+		xHigh = xLow + (1 / Tile.TILE_ATLAS_COLS);
+		yLow = row / Tile.TILE_ATLAS_ROWS;
+		yHigh = yLow + (1 / Tile.TILE_ATLAS_ROWS);
 	}
 	
 	public void addTileType(int color, Tile tile){

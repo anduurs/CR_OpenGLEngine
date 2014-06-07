@@ -14,8 +14,8 @@ public class Hero extends Mob implements Collideable{
 	private Vector2f targetVel;
 	private float accSpeed = 3.5f;
 	
-	public Hero(Vector2f position) {
-		super(position);
+	public Hero(Vector2f position, World world) {
+		super(position, world);
 		
 		sprite = new Sprite("hero", World.getShader(), transform);
 		

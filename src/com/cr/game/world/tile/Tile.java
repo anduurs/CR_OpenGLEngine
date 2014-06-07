@@ -6,17 +6,14 @@ public abstract class Tile {
 	
 	private static Texture texture = new Texture("tileatlas");
 	
+	public final static float TILE_ATLAS_ROWS = 4;
+	public final static float TILE_ATLAS_COLS = 4;
+	
 	private static int width, height;
+	protected float row, col;
 	protected boolean walkable;
 	
 	public Tile(){
-		width = texture.getWidth();
-		height = texture.getHeight();
-		walkable = true;
-	}
-	
-	public Tile(String imageString){
-		texture = new Texture(imageString);
 		width = texture.getWidth();
 		height = texture.getHeight();
 		walkable = true;
@@ -36,6 +33,14 @@ public abstract class Tile {
 
 	public boolean isWalkable() {
 		return walkable;
+	}
+
+	public float getRow() {
+		return row;
+	}
+
+	public float getCol() {
+		return col;
 	}
 
 }
