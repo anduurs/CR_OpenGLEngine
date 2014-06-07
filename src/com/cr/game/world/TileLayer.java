@@ -109,8 +109,8 @@ public class TileLayer {
 				float xPos = x * tWidth ;
 				float yPos = y * tHeight ;
 				
-				float xOffset = 9f;
-				float yOffset = 7f;
+				float xOffset = 20f;
+				float yOffset = 18f;
 				
 				indices.add(vertices.size() + 0);
 				indices.add(vertices.size() + 1);
@@ -143,7 +143,7 @@ public class TileLayer {
 	
 	public void renderTileLayer(float xScroll, float yScroll, float depth){
 		transform.translate(-xScroll, -yScroll, depth);
-		transform.scale(0.25f, 0.25f, 0);
+		transform.scale(0.20f, 0.20f, 0);
 		//transform.rotate(0, 0, xScroll-width/2);
 		shader.bind();
 		shader.setUniform("transformation", transform.getOrthoTransformation());
