@@ -1,4 +1,4 @@
-package com.cr.game.datastructures;
+package com.cr.game.datastructure;
 
 
 public class Node<E> {

@@ -1,7 +1,7 @@
 package com.cr.game.state;
 
-import com.cr.game.datastructures.LinkedStack;
-import com.cr.game.datastructures.Node;
+import com.cr.game.datastructure.LinkedStack;
+import com.cr.game.datastructure.Node;
 import com.cr.game.graphics.Screen;
 
 public class GameStateManager {
