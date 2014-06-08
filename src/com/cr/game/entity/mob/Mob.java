@@ -27,6 +27,8 @@ public abstract class Mob extends Entity implements Tickable, Renderable{
 	
 	protected static Direction currentDir;
 	
+	protected boolean moving = false;
+	
 	public Mob(Vector2f position, World world) {
 		super(position);
 		this.world = world;
