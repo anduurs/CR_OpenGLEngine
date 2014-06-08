@@ -100,12 +100,10 @@ public class TileLayer {
 			iArray[i] = indexArray[i];
 		
 		mesh = new Mesh(vertexArray, iArray);
+		transform.scale(scaleFactor, scaleFactor, 0);
 	}
 	
-	public void renderTileLayer(float xScroll, float yScroll, float depth){
-		transform.translate(-xScroll, -yScroll, depth);
-		transform.scale(scaleFactor, scaleFactor, 0);
-		//transform.rotate(0, 0, xScroll-width/2);
+	public void renderTileLayer(){
 		shader.bind();
 		shader.setUniform("transformation", transform.getOrthoTransformation());
 		Tile.getTexture().bind();

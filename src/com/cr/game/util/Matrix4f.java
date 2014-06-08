@@ -36,7 +36,7 @@ public class Matrix4f {
 	 * @param z amount of translation on the z-axis
 	 * @return this matrix transformed to the translation matrix
 	 */
-	public Matrix4f setTranslationMatrix(float x, float y, float z){
+	public Matrix4f initTranslationMatrix(float x, float y, float z){
 		matrix[0][0] = 1;	matrix[0][1] = 0;	matrix[0][2] = 0;	matrix[0][3] = x;
 		matrix[1][0] = 0;	matrix[1][1] = 1;	matrix[1][2] = 0;	matrix[1][3] = y;
 		matrix[2][0] = 0;	matrix[2][1] = 0;	matrix[2][2] = 1;	matrix[2][3] = z;
@@ -52,7 +52,7 @@ public class Matrix4f {
 	 * @param z amount of scaling on the z-axis
 	 * @return this matrix transformed to the scaling matrix
 	 */
-	public Matrix4f setScalingMatrix(float x, float y, float z){
+	public Matrix4f initScalingMatrix(float x, float y, float z){
 		matrix[0][0] = x;	matrix[0][1] = 0;	matrix[0][2] = 0;	matrix[0][3] = 0;
 		matrix[1][0] = 0;	matrix[1][1] = y;	matrix[1][2] = 0;	matrix[1][3] = 0;
 		matrix[2][0] = 0;	matrix[2][1] = 0;	matrix[2][2] = z;	matrix[2][3] = 0;
@@ -68,7 +68,7 @@ public class Matrix4f {
 	 * @param z the angle in degrees which will be rotated around the z-axis
 	 * @return this matrix transformed to the rotation matrix
 	 */
-	public Matrix4f setRotationMatrix(float x, float y, float z){
+	public Matrix4f initRotationMatrix(float x, float y, float z){
 		Matrix4f rx = new Matrix4f();
 		Matrix4f ry = new Matrix4f();
 		Matrix4f rz = new Matrix4f();
@@ -107,7 +107,7 @@ public class Matrix4f {
 	 * @param far
 	 * @return this matrix transformed to the orthographic projection matrix
 	 */
-	public Matrix4f setOrthographicProjection(float left, float right, float bottom, float top, float near, float far){
+	public Matrix4f initOrthographicProjection(float left, float right, float bottom, float top, float near, float far){
 		matrix[0][0] = 2/(right - left);	matrix[0][1] = 0;					matrix[0][2] = 0;				matrix[0][3] = -(right + left)/(right - left);
 		matrix[1][0] = 0;					matrix[1][1] = 2/(top - bottom);	matrix[1][2] = 0;				matrix[1][3] = -(top + bottom)/(top - bottom);
 		matrix[2][0] = 0;					matrix[2][1] = 0;					matrix[2][2] = 2/(far - near);	matrix[2][3] = -(far + near)/(far - near);
@@ -116,7 +116,7 @@ public class Matrix4f {
 		return this;
 	}
 	
-	public Matrix4f setPerspectiveProjection(float fov, float width, float height, float zNear, float zFar){
+	public Matrix4f initPerspectiveProjection(float fov, float width, float height, float zNear, float zFar){
 		float aspectRatio = width/height;
 		float tanHalfFOV = (float)Math.tan(fov / 2);
 		float zRange = zNear - zFar;
@@ -128,7 +128,6 @@ public class Matrix4f {
 
 		return this;
 	}
-
 	
 	/**
 	 * Performs matrix multiplication between this matrix and the given

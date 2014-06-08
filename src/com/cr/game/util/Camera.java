@@ -1,66 +1,50 @@
 package com.cr.game.util;
 
+import com.cr.game.core.EntityManager;
 import com.cr.game.core.Window;
 
 public class Camera {
 	
-	private static Vector2f pos;
+	private static Vector3f position;
 	
-	private static float camX, camY;
-	
-	private int width = Window.getWidth();
-	private int height = Window.getHeight();
-	
-	public Camera(float camX, float camY){
-		this.camX = camX;
-		this.camY = camY;
-		pos = new Vector2f(camX, camY);
+	public Camera(){
+		this(new Vector3f(0,0,0));
+		position.x = EntityManager.getHero().getX() - (Window.getWidth()/2 - EntityManager.getHero().getWidth());
+		position.y = EntityManager.getHero().getY() - (Window.getHeight()/2 - EntityManager.getHero().getHeight());
 	}
 	
-	
-	
-	public float centerX(){
-		return camX + (width/2);
+	public Camera(Vector3f position) {
+		Camera.position = position;
 	}
 	
-	public float centerY(){
-		return camY + (height/2);
+	public void tick(float dt){
+		position.x = EntityManager.getHero().getX() - (Window.getWidth()/2 - EntityManager.getHero().getWidth());
+		position.y = EntityManager.getHero().getY() - (Window.getHeight()/2 - EntityManager.getHero().getHeight());
 	}
 	
-	public Vector2f getPos() {
-		return pos;
+	public static float getCamX(){
+		return position.x;
 	}
-	public int getWidth() {
-		return width;
+	
+	public static float getCamY(){
+		return position.y;
 	}
-	public int getHeight() {
-		return height;
+	
+	public static float getCamZ(){
+		return position.z;
 	}
-	public void setPos(Vector2f pos) {
-		this.pos = pos;
-	}
-	public void setWidth(int width) {
-		this.width = width;
-	}
-	public void setHeight(int height) {
-		this.height = height;
+	
+	public static Vector3f getPos() {
+		return position;
 	}
 
-	public static float getCamX() {
-		return camX;
+	public void setPos(Vector3f position) {
+		Camera.position = position;
 	}
 
-	public static float getCamY() {
-		return camY;
-	}
 
-	public void setCamX(float camX) {
-		this.camX = camX;
-	}
-
-	public void setCamY(float camY) {
-		this.camY = camY;
-	}
+	
+	
 	
 	
 

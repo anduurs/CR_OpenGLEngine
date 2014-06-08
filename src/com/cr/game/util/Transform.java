@@ -6,42 +6,48 @@ public class Transform {
 	
 	private Vector3f translation, rotation, scaling;
 	private Matrix4f ortho, perspective;
+	private static Camera camera;
 	
 	public Transform(){
 		translation = new Vector3f(0,0,0);
 		rotation = new Vector3f(0,0,0);
 		scaling = new Vector3f(1,1,1);
-		ortho = new Matrix4f().setOrthographicProjection(0, Window.getWidth(), Window.getHeight(), 0, -1f, 1f);
-		perspective = new Matrix4f().setPerspectiveProjection(10f, Window.getWidth(), Window.getHeight(), 1, 400f);
+		ortho = new Matrix4f().initOrthographicProjection(0, Window.getWidth(), Window.getHeight(), 0, -1f, 1f);
+		perspective = new Matrix4f().initPerspectiveProjection(70f, Window.getWidth(), Window.getHeight(), 0.1f, 1000f);
 	}
 	
 	public Matrix4f getTranslationMatrix(){
-		Matrix4f translationMatrix = new Matrix4f().setTranslationMatrix(translation.x, translation.y, translation.z);
+		Matrix4f translationMatrix = new Matrix4f().initTranslationMatrix(translation.x, translation.y, translation.z);
 		return translationMatrix;
 	}
 	
 	public Matrix4f getRotationMatrix(){
-		Matrix4f rotMatrix = new Matrix4f().setRotationMatrix(rotation.x, rotation.y, rotation.z);
+		Matrix4f rotMatrix = new Matrix4f().initRotationMatrix(rotation.x, rotation.y, rotation.z);
 		return rotMatrix;
 	}
 	
-	public Matrix4f getScalingnMatrix(){
-		Matrix4f scalingMatrix = new Matrix4f().setScalingMatrix(scaling.x, scaling.y, scaling.z);
+	public Matrix4f getScalingMatrix(){
+		Matrix4f scalingMatrix = new Matrix4f().initScalingMatrix(scaling.x, scaling.y, scaling.z);
 		return scalingMatrix;
 	}
 	
 	public Matrix4f getModelMatrix(){
 		Matrix4f T = getTranslationMatrix();
 		Matrix4f R = getRotationMatrix();
-		Matrix4f S = getScalingnMatrix();
+		Matrix4f S = getScalingMatrix();
 		
 		Matrix4f modelMatrix = T.mul(R.mul(S));
 		
 		return modelMatrix;
 	}
 	
+	public Matrix4f getViewMatrix(){
+		Matrix4f cameraTranslation = new Matrix4f().initTranslationMatrix(-Camera.getCamX(), -Camera.getCamY(), -Camera.getCamZ());
+		return (cameraTranslation);
+	}
+	
 	public Matrix4f getOrthoTransformation(){
-		return ortho.mul(getModelMatrix());
+		return ortho.mul(getViewMatrix().mul(getModelMatrix()));
 	}
 	
 	public Matrix4f getPerspectiveTransformation(){
@@ -74,12 +80,12 @@ public class Transform {
 		return perspective;
 	}
 	
-	public void setOrtho(float left, float right, float bottom, float top, float near, float far) {
-		this.ortho = new Matrix4f().setOrthographicProjection(left, right, bottom, top, near, far);
+	public void setOrthoProjection(float left, float right, float bottom, float top, float near, float far) {
+		this.ortho = new Matrix4f().initOrthographicProjection(left, right, bottom, top, near, far);
 	}
 
-	public void setPerspective(float fov, float width, float height, float zNear, float zFar) {
-		this.perspective = new Matrix4f().setPerspectiveProjection(fov, width, height, zNear, zFar);
+	public void setPerspectiveProjection(float fov, float width, float height, float zNear, float zFar) {
+		this.perspective = new Matrix4f().initPerspectiveProjection(fov, width, height, zNear, zFar);
 	}
 	
 	public Vector3f getTranslationVector() {
@@ -104,6 +110,10 @@ public class Transform {
 
 	public void setScalingVector(Vector3f scaling) {
 		this.scaling = scaling;
+	}
+
+	public static void setCamera(Camera camera) {
+		Transform.camera = camera;
 	}
 
 }

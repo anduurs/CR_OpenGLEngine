@@ -28,7 +28,7 @@ public class Vector3f {
 		return new Vector3f(x_, y_, z_);
 	}
 
-	public Vector3f normalized(){
+	public Vector3f normalize(){
 		float length = length();
 		return new Vector3f(x / length, y / length, z / length);
 	}
