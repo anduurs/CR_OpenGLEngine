@@ -1,6 +1,6 @@
 package com.cr.game.entity;
 
-import com.cr.game.util.Vector2f;
+import com.cr.game.core.Vector2f;
 
 public abstract class Entity {
 	

@@ -1,12 +1,10 @@
 package com.cr.game.entity.mob.hero;
 
+import com.cr.game.core.Vector2f;
 import com.cr.game.entity.Collideable;
 import com.cr.game.entity.mob.Mob;
-import com.cr.game.graphics.Screen;
 import com.cr.game.graphics.Sprite;
 import com.cr.game.input.Input;
-import com.cr.game.util.Camera;
-import com.cr.game.util.Vector2f;
 import com.cr.game.world.World;
 
 public class Hero extends Mob implements Collideable{

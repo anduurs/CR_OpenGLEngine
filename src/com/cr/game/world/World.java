@@ -1,10 +1,10 @@
 package com.cr.game.world;
 
-import com.cr.game.core.EntityManager;
+import com.cr.game.core.Transform;
+import com.cr.game.entity.EntityManager;
 import com.cr.game.graphics.Screen;
-import com.cr.game.graphics.Shader;
+import com.cr.game.graphics.shader.Shader;
 import com.cr.game.util.Camera;
-import com.cr.game.util.Transform;
 import com.cr.game.world.tile.Tile;
 
 public class World {
@@ -79,6 +79,14 @@ public class World {
 
 	public static Shader getShader() {
 		return shader;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 
 }

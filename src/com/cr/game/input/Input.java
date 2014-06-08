@@ -3,7 +3,7 @@ package com.cr.game.input;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
-import com.cr.game.util.Vector2f;
+import com.cr.game.core.Vector2f;
 
 public class Input {
 

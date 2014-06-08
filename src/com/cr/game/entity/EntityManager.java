@@ -1,14 +1,11 @@
-package com.cr.game.core;
+package com.cr.game.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cr.game.entity.Entity;
-import com.cr.game.entity.Renderable;
-import com.cr.game.entity.Tickable;
+import com.cr.game.core.Vector2f;
 import com.cr.game.entity.mob.hero.Hero;
 import com.cr.game.graphics.Screen;
-import com.cr.game.util.Vector2f;
 import com.cr.game.world.World;
 
 public class EntityManager {

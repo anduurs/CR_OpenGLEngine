@@ -1,6 +1,7 @@
-package com.cr.game.util;
+package com.cr.game.core;
 
-import com.cr.game.core.Window;
+import com.cr.game.graphics.Window;
+import com.cr.game.util.Camera;
 
 public class Transform {
 	

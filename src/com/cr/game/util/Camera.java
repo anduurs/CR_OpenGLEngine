@@ -1,7 +1,8 @@
 package com.cr.game.util;
 
-import com.cr.game.core.EntityManager;
-import com.cr.game.core.Window;
+import com.cr.game.core.Vector3f;
+import com.cr.game.entity.EntityManager;
+import com.cr.game.graphics.Window;
 
 public class Camera {
 	

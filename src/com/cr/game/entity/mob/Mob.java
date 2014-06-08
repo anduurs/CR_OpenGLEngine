@@ -1,13 +1,12 @@
 package com.cr.game.entity.mob;
 
+import com.cr.game.core.Transform;
+import com.cr.game.core.Vector2f;
 import com.cr.game.entity.Entity;
 import com.cr.game.entity.Renderable;
 import com.cr.game.entity.Tickable;
 import com.cr.game.graphics.Screen;
 import com.cr.game.graphics.Sprite;
-import com.cr.game.util.Camera;
-import com.cr.game.util.Transform;
-import com.cr.game.util.Vector2f;
 import com.cr.game.world.World;
 import com.cr.game.world.tile.Tile;
 

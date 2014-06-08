@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.cr.game.core.Transform;
+import com.cr.game.core.Vector2f;
+import com.cr.game.core.Vector3f;
+import com.cr.game.core.Vertex;
 import com.cr.game.graphics.Bitmap;
 import com.cr.game.graphics.Mesh;
-import com.cr.game.graphics.Shader;
-import com.cr.game.util.Transform;
-import com.cr.game.util.Vector2f;
-import com.cr.game.util.Vector3f;
-import com.cr.game.util.Vertex;
+import com.cr.game.graphics.shader.Shader;
 import com.cr.game.world.tile.Tile;
 
 public class TileLayer {

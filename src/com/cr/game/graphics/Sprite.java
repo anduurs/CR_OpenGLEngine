@@ -1,9 +1,10 @@
 package com.cr.game.graphics;
 
-import com.cr.game.util.Transform;
-import com.cr.game.util.Vector2f;
-import com.cr.game.util.Vector3f;
-import com.cr.game.util.Vertex;
+import com.cr.game.core.Transform;
+import com.cr.game.core.Vector2f;
+import com.cr.game.core.Vector3f;
+import com.cr.game.core.Vertex;
+import com.cr.game.graphics.shader.Shader;
 
 public class Sprite {
 	

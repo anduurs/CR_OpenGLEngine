@@ -3,9 +3,9 @@ package com.cr.game.world.biome;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import com.cr.game.util.ColorRGBA;
+import com.cr.game.core.Transform;
+import com.cr.game.graphics.ColorRGBA;
 import com.cr.game.util.Randomizer;
-import com.cr.game.util.Transform;
 import com.cr.game.world.TileLayer;
 import com.cr.game.world.tile.DirtTile;
 import com.cr.game.world.tile.GrassTile;

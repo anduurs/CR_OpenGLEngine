@@ -1,6 +1,5 @@
 package com.cr.game.state;
 
-import com.cr.game.core.GameStateManager;
 import com.cr.game.graphics.Screen;
 
 public abstract class GameState {

@@ -1,4 +1,4 @@
-package com.cr.game.util;
+package com.cr.game.graphics;
 
 public class ColorRGBA {
 	

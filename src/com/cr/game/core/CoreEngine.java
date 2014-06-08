@@ -1,5 +1,7 @@
 package com.cr.game.core;
 
+import com.cr.game.graphics.Window;
+
 public abstract class CoreEngine {
 	
 	public static int TARGET_TPS = 60;

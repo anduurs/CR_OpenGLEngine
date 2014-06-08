@@ -1,4 +1,4 @@
-package com.cr.game.core;
+package com.cr.game.graphics;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;

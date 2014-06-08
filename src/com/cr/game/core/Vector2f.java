@@ -1,4 +1,4 @@
-package com.cr.game.util;
+package com.cr.game.core;
 
 /**
  * Class for representing a vector in a 2d coordinate space

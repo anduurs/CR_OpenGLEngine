@@ -1,4 +1,4 @@
-package com.cr.game.util;
+package com.cr.game.core;
 
 /**
  * Class for representing a 4x4 matrix
