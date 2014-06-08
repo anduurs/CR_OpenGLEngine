@@ -21,11 +21,11 @@ public abstract class Mob extends Entity implements Tickable, Renderable{
 	
 	protected Transform transform;
 	
-	protected enum Direction{
+	public enum Direction{
 		NORTH, SOUTH, EAST, WEST;
 	}
 	
-	protected static Direction currentDir;
+	protected Direction currentDir;
 	
 	protected boolean moving = false;
 	
@@ -86,6 +86,22 @@ public abstract class Mob extends Entity implements Tickable, Renderable{
 	@Override
 	public Sprite getSprite(){
 		return sprite;
+	}
+
+	public Direction getCurrentDir() {
+		return currentDir;
+	}
+
+	public void setCurrentDir(Direction currentDir) {
+		this.currentDir = currentDir;
+	}
+
+	public boolean isMoving() {
+		return moving;
+	}
+
+	public void setMoving(boolean moving) {
+		this.moving = moving;
 	}
 
 }

@@ -15,10 +15,11 @@ public class Hero extends Mob implements Collideable{
 	private float speed = 15f;
 	
 	private Animation anim;
+	private HeroInput input;
 
 	public Hero(Vector2f position, World world) {
 		super(position, world);
-		
+	
 		sprite = new Sprite("heroatlas", 4, 4, 0, 0, World.getShader(), transform);
 		
 		anim = new Animation(sprite, 8);
@@ -31,72 +32,8 @@ public class Hero extends Mob implements Collideable{
 		
 		currentDir = Direction.SOUTH;
 		transform.scale(1.2f, 1.2f, 0);
-	}
-	
-	private float diagonalSpeed(float speed){
-		float res = (float) Math.sqrt((speed*speed) + (speed*speed));
-		return res/2.0f;
-	}
-	
-	private void processInput(){
-		if(Input.getKey(Input.KEY_W)){
-			targetVel.y = -speed;
-			currentDir = Direction.NORTH;
-			moving = true;
-		}
 		
-		if(Input.getKey(Input.KEY_S)){
-			targetVel.y = speed;
-			currentDir = Direction.SOUTH;
-			moving = true;
-		}
-		
-		if(Input.getKey(Input.KEY_D)){
-			targetVel.x = speed;
-			currentDir = Direction.EAST;
-			moving = true;
-		}
-		
-		if(Input.getKey(Input.KEY_A)){
-			targetVel.x = -speed;
-			currentDir = Direction.WEST;
-			moving = true;
-		}
-		
-		if(Input.getKey(Input.KEY_W) && Input.getKey(Input.KEY_A)){
-			targetVel.x = -diagonalSpeed(speed);
-			targetVel.y = -diagonalSpeed(speed);
-			currentDir = Direction.NORTH;
-			moving = true;
-		}
-		
-		if(Input.getKey(Input.KEY_W) && Input.getKey(Input.KEY_D)){
-			targetVel.x = diagonalSpeed(speed);
-			targetVel.y = -diagonalSpeed(speed);
-			currentDir = Direction.NORTH;
-			moving = true;
-		}
-		
-		if(Input.getKey(Input.KEY_S) && Input.getKey(Input.KEY_A)){
-			targetVel.x = -diagonalSpeed(speed);
-			targetVel.y = diagonalSpeed(speed);
-			currentDir = Direction.SOUTH;
-			moving = true;
-		}
-		
-		if(Input.getKey(Input.KEY_S) && Input.getKey(Input.KEY_D)){
-			targetVel.x = diagonalSpeed(speed);
-			targetVel.y = diagonalSpeed(speed);
-			currentDir = Direction.SOUTH;
-			moving = true;
-		}
-		
-		if(!Input.getKey(Input.KEY_W) && !Input.getKey(Input.KEY_S))
-			targetVel.y = 0;
-		if(!Input.getKey(Input.KEY_D) && !Input.getKey(Input.KEY_A))
-			targetVel.x = 0;
-		
-		if(targetVel.y == 0 && targetVel.x == 0) moving = false;
+		input = new HeroInput(this);
 	}
 	
 	private void animate(){
@@ -115,7 +52,7 @@ public class Hero extends Mob implements Collideable{
 	
 	@Override
 	public void tick(float dt){
-		processInput();
+		input.input();
 		animate();
 
 		velocity.x = approachTarget(targetVel.x, velocity.x, dt*accSpeed);
@@ -129,6 +66,14 @@ public class Hero extends Mob implements Collideable{
 	public void collisionWith(Collideable obj) {
 		
 		
+	}
+
+	public Vector2f getTargetVel() {
+		return targetVel;
+	}
+
+	public float getSpeed() {
+		return speed;
 	}
 
 }
