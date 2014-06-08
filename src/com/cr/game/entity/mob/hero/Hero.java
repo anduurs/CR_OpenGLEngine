@@ -35,18 +35,22 @@ public class Hero extends Mob implements Collideable{
 	private void processInput(){
 		if(Input.getKey(Input.KEY_D)){
 			targetVel.x = 10f;
+			sprite.updateTexCoords(2, 0);
 			currentDir = Direction.EAST;
 		}
 		if(Input.getKey(Input.KEY_A)){
 			targetVel.x = -10f;
+			sprite.updateTexCoords(1, 0);
 			currentDir = Direction.WEST;
 		}
 		if(Input.getKey(Input.KEY_W)){
 			targetVel.y = -10f;
+			sprite.updateTexCoords(3, 0);
 			currentDir = Direction.NORTH;
 		}
 		if(Input.getKey(Input.KEY_S)){
 			targetVel.y = 10f;
+			sprite.updateTexCoords(0, 0);
 			currentDir = Direction.SOUTH;
 		}
 		

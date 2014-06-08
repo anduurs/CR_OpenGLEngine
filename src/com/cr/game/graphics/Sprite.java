@@ -63,7 +63,7 @@ public class Sprite {
 							 new Vertex(new Vector3f(width, height, 0)),
 							 new Vertex(new Vector3f(width, 0, 0))};
 		
-		calcUVcoords(0,0);
+		calcUVcoords(0,1);
 		
 		Vector2f[] texCoords = {new Vector2f(xLow, yLow),
 							    new Vector2f(xLow, yHigh),
@@ -82,6 +82,20 @@ public class Sprite {
 		xHigh = xLow + (1 / cols);
 		yLow = row / rows;
 		yHigh = yLow + (1 / rows);
+	}
+	
+	public void updateTexCoords(float row, float col){
+		xLow = col / cols;
+		xHigh = xLow + (1 / cols);
+		yLow = row / rows;
+		yHigh = yLow + (1 / rows);
+		
+		Vector2f[] texCoords = {new Vector2f(xLow, yLow),
+			    				new Vector2f(xLow, yHigh),
+			    				new Vector2f(xHigh, yHigh),
+			    				new Vector2f(xHigh, yLow)};
+		
+		mesh.updateTexCoordData(texCoords);
 	}
 	
 	public void bind(){

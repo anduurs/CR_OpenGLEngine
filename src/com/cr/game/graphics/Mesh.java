@@ -45,6 +45,20 @@ public class Mesh {
 		}
 	}
 	
+	public void updateTexCoordData(Vector2f[] texCoords){
+		texCoordBuffer = BufferUtils.createFloatBuffer(2 * texCoords.length);
+		
+		for(int i = 0; i < texCoords.length; i++){
+			texCoordBuffer.put(texCoords[i].x);
+			texCoordBuffer.put(texCoords[i].y);
+		}
+		
+		texCoordBuffer.flip();
+		glBindBuffer(GL_ARRAY_BUFFER, texID);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, texCoordBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+	
 	private void sendDynamicData(Vertex[] vertices, int[] indices){
 		
 	}
@@ -141,6 +155,7 @@ public class Mesh {
 		
 		vertexBuffer = null;
 		indexBuffer = null;
+		texCoordBuffer = null;
 		
 		vaoID = glGenVertexArrays();
 		glBindVertexArray(vaoID);
