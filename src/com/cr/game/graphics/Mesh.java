@@ -55,6 +55,7 @@ public class Mesh {
 		
 		texCoordBuffer.flip();
 		glBindBuffer(GL_ARRAY_BUFFER, texID);
+		//second param is the offset in bytes to where the replacement of the data will start
 		glBufferSubData(GL_ARRAY_BUFFER, 0, texCoordBuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
