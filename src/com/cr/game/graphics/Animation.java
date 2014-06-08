@@ -13,11 +13,7 @@ public class Animation {
 		this.animSpeed = animSpeed;
 	}
 	
-	public void setFrame(int row){
-		sprite.updateTexCoords(row, 0);
-	}
-	
-	public void animate(int row){
+	public void animateRow(int row){
 		if(timer < 7500) timer++;
 		else timer = 0;
 		
@@ -27,6 +23,22 @@ public class Animation {
 		}
 		
 		if(currentFrame == sprite.getCols()) currentFrame = 0;
+	}
+	
+	public void animateCol(int col){
+		if(timer < 7500) timer++;
+		else timer = 0;
+		
+		if(timer % animSpeed == 0 && currentFrame < sprite.getCols()){
+			sprite.updateTexCoords(currentFrame, col);
+			currentFrame++;
+		}
+		
+		if(currentFrame == sprite.getCols()) currentFrame = 0;
+	}
+	
+	public void setFrame(int row){
+		sprite.updateTexCoords(row, 0);
 	}
 
 	public int getAnimSpeed() {
