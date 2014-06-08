@@ -37,9 +37,9 @@ public class TileMap {
 	}
 	
 	public void renderMap(){
-		bottomLayer.renderTileLayer();
-		middleLayer.renderTileLayer();
-		topLayer.renderTileLayer();
+		bottomLayer.renderTileLayer(0.9f);
+		middleLayer.renderTileLayer(0.7f);
+		topLayer.renderTileLayer(0.6f);
 	}
 	
 	public int getWidth(){

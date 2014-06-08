@@ -29,7 +29,7 @@ public class TileLayer {
 	private float yLow = 0;
 	private float yHigh = 0;
 	
-	private float scaleFactor = 0.2f;
+	private float scaleFactor = 1f;
 	
 	public TileLayer(int width, int height, Transform transform){
 		bitmap = new Bitmap(width, height);
@@ -37,6 +37,7 @@ public class TileLayer {
 		this.width = width;
 		this.height = height;
 		this.transform = transform;
+		
 		this.shader = World.getShader();
 		
 		tiles = new HashMap<Integer, Tile>();
@@ -58,8 +59,8 @@ public class TileLayer {
 		List<Vertex> vertices = new ArrayList<Vertex>();
 		List<Integer> indices = new ArrayList<Integer>();
 		
-		float tWidth = Tile.getAtlasWidth();
-		float tHeight = Tile.getAtlasHeight();
+		float tWidth = Tile.getTileWidth();
+		float tHeight = Tile.getTileHeight();
 		
 		for(int y = 0; y < height; y++){
 			for(int x = 0; x < width; x++){
@@ -70,8 +71,8 @@ public class TileLayer {
 				float xPos = x * tWidth ;
 				float yPos = y * tHeight ;
 				
-				float xOffset = 20f;
-				float yOffset = 18f;
+				float xOffset = 7f;
+				float yOffset = 5f;
 				
 				indices.add(vertices.size() + 0);
 				indices.add(vertices.size() + 1);
@@ -100,10 +101,11 @@ public class TileLayer {
 			iArray[i] = indexArray[i];
 		
 		mesh = new Mesh(vertexArray, iArray);
-		transform.scale(scaleFactor, scaleFactor, 0);
+		transform.scale(scaleFactor, scaleFactor, 1);
 	}
 	
-	public void renderTileLayer(){
+	public void renderTileLayer(float depth){
+		transform.translate(0, 0, depth);
 		shader.bind();
 		shader.setUniform("transformation", transform.getOrthoTransformation());
 		Tile.getTexture().bind();

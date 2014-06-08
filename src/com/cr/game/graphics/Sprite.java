@@ -8,13 +8,22 @@ import com.cr.game.graphics.shader.Shader;
 
 public class Sprite {
 	
-	private int width, height;
+	private int width, height, atlasWidth, atlasHeight;
 	
-	private Texture texture;
+	private Texture texture, textureAtlas;
 	private Mesh mesh;
 	
 	private Transform transform;
 	private Shader shader;
+	
+	private float xLow = 0;
+	private float xHigh = 0;
+	private float yLow = 0;
+	private float yHigh = 0;
+	
+	private float rows, cols;
+	
+	private boolean tAtlas = false;
 	
 	public Sprite(String name, Shader shader, Transform transform){
 		this.shader = shader;
@@ -36,14 +45,57 @@ public class Sprite {
 		mesh = new Mesh(vertices, indices);
 	}
 	
+	public Sprite(String name, float rows, float cols, Shader shader, Transform transform){
+		this.rows = rows;
+		this.cols = cols;
+		this.shader = shader;
+		this.transform = transform;
+		
+		textureAtlas = new Texture(name);
+		
+		atlasWidth = textureAtlas.getWidth();
+		atlasHeight = textureAtlas.getHeight();
+		width = (int) (atlasWidth / cols);
+		height = (int) (atlasHeight / rows) ;
+		
+		Vertex[] vertices = {new Vertex(new Vector3f(0, 0, 0)),
+							 new Vertex(new Vector3f(0, height, 0)),
+							 new Vertex(new Vector3f(width, height, 0)),
+							 new Vertex(new Vector3f(width, 0, 0))};
+		
+		calcUVcoords(0,0);
+		
+		Vector2f[] texCoords = {new Vector2f(xLow, yLow),
+							    new Vector2f(xLow, yHigh),
+							    new Vector2f(xHigh, yHigh),
+							    new Vector2f(xHigh, yLow)};
+		
+		int[] indices = {0,1,2, 
+						 2,3,0};
+		
+		mesh = new Mesh(vertices, texCoords, indices);
+		tAtlas = true;
+	}
+	
+	public void calcUVcoords(float row, float col){
+		xLow = col / cols;
+		xHigh = xLow + (1 / cols);
+		yLow = row / rows;
+		yHigh = yLow + (1 / rows);
+	}
+	
 	public void bind(){
 		shader.bind();
 		shader.setUniform("transformation", transform.getOrthoTransformation());
-		texture.bind();
+		if(!tAtlas)
+			texture.bind();
+		else textureAtlas.bind();
 	}
 	
 	public void unbind(){
-		texture.unbind();
+		if(!tAtlas)
+			texture.unbind();
+		else textureAtlas.unbind();
 		shader.unbind();
 	}
 

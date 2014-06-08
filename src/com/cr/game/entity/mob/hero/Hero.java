@@ -14,10 +14,13 @@ public class Hero extends Mob implements Collideable{
 	
 	Direction d = currentDir; 
 	
+	
+	
 	public Hero(Vector2f position, World world) {
 		super(position, world);
 		
-		sprite = new Sprite("hero", World.getShader(), transform);
+		sprite = new Sprite("heroatlas", 4, 4, World.getShader(), transform);
+		//sprite = new Sprite("hero", World.getShader(), transform);
 		
 		width = sprite.getWidth();
 		height = sprite.getHeight();
@@ -26,7 +29,7 @@ public class Hero extends Mob implements Collideable{
 		targetVel = new Vector2f(0, 0);
 		
 		currentDir = Direction.SOUTH;
-		transform.scale(0.7f, 0.7f, 0);
+		transform.scale(1.2f, 1.2f, 0);
 	}
 	
 	private void processInput(){

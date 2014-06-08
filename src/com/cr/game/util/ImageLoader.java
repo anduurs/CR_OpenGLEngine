@@ -12,12 +12,8 @@ public class ImageLoader {
 			new HashMap<String, BufferedImage>();
 	
 	public ImageLoader(){
-		
-		//----------------------------Texture Atlases --------------------------//
-		imageLib.put("tileatlas", loadImage("/tiles/tileatlas.png"));
-		//----------------------------------------------------------------------//
-		
 		//----------------------------Tiles-------------------------------------//
+		imageLib.put("tileatlas", loadImage("/tiles/tileatlas.png"));
 		imageLib.put("grass", loadImage("/tiles/grass.png"));
 		imageLib.put("grass2", loadImage("/tiles/grass2.png"));
 		imageLib.put("dirt", loadImage("/tiles/dirt.png"));
@@ -37,6 +33,7 @@ public class ImageLoader {
 
 		//-----------------------------Hero-------------------------------------//
 		imageLib.put("hero", loadImage("/hero/hero.png"));
+		imageLib.put("heroatlas", loadImage("/hero/hero_atlas.png"));
 		//----------------------------------------------------------------------//
 	}
 	
