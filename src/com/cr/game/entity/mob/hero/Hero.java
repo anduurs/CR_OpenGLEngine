@@ -28,6 +28,7 @@ public class Hero extends Mob implements Collideable{
 		targetVel = new Vector2f(0, 0);
 		
 		currentDir = Direction.SOUTH;
+		transform.scale(0.7f, 0.7f, 0);
 	}
 	
 	private void processInput(){
@@ -63,22 +64,22 @@ public class Hero extends Mob implements Collideable{
 		
 	
 		
-		if(collisionWithTile(targetVel.x*dt,0)){
-			targetVel.x = 0;
-			
-		}
-		
-		if(collisionWithTile(0, targetVel.y*dt)){
-			
-			targetVel.y = 0;
-		}
+//		if(collisionWithTile(targetVel.x*dt,0)){
+//			targetVel.x = 0;
+//			
+//		}
+//		
+//		if(collisionWithTile(0, targetVel.y*dt)){
+//			
+//			targetVel.y = 0;
+//		}
 		
 	
 
 		velocity.x = approachTarget(targetVel.x, velocity.x, dt*accSpeed);
 		velocity.y = approachTarget(targetVel.y, velocity.y, dt*accSpeed);
 		//transform.rotate(0, 0, velocity.x);
-		transform.scale(1f, 1f, 0);
+		
 		move(dt);
 	}
 	

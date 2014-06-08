@@ -29,7 +29,7 @@ public class TileLayer {
 	private float yLow = 0;
 	private float yHigh = 0;
 	
-	private float scaleFactor = 0.25f;
+	private float scaleFactor = 0.2f;
 	
 	public TileLayer(int width, int height, Transform transform){
 		bitmap = new Bitmap(width, height);
