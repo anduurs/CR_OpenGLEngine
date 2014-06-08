@@ -55,7 +55,7 @@ public abstract class CoreEngine {
 			Window.update();
 	
 			if(frameCounter >= 1){
-				Window.setTitle("Craftmans Revenge v0.01" + " || " + tps + " tps, " + fps + " fps");
+				Window.setTitle("OpenGL 2D GameEngine v0.01" + " || " + tps + " tps, " + fps + " fps");
 				fps = 0;
 				tps = 0;
 				frameCounter = 0;

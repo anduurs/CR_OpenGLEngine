@@ -50,7 +50,7 @@ public class Mesh {
 	
 	private void sendStaticData(Vertex[] vertices, int[] indices){
 		
-		vertexBuffer = BufferUtils.createFloatBuffer(Vertex.VERTEX_SIZE * vertices.length);
+		vertexBuffer = BufferUtils.createFloatBuffer(Vertex.SIZE * vertices.length);
 		
 		for(int i = 0; i < vertices.length; i++){
 			vertexBuffer.put(vertices[i].getPos().x);
@@ -86,8 +86,8 @@ public class Mesh {
 		glBindVertexArray(vaoID);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, vboID);
-		glVertexAttribPointer(0, 3, GL_FLOAT, false, Vertex.VERTEX_SIZE * 4, 0);
-		glVertexAttribPointer(1, 2, GL_FLOAT, false, Vertex.VERTEX_SIZE * 4, 12);
+		glVertexAttribPointer(0, 3, GL_FLOAT, false, Vertex.SIZE * 4, 0);
+		glVertexAttribPointer(1, 2, GL_FLOAT, false, Vertex.SIZE * 4, 12);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		
 		glEnableVertexAttribArray(0);

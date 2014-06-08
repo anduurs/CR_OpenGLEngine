@@ -5,7 +5,7 @@ public class Vertex {
 	private Vector3f pos;
 	private Vector2f texCoord;
 	
-	public final static int VERTEX_SIZE = 5;
+	public final static int SIZE = 5;
 	
 	public Vertex(Vector3f pos){
 		this.pos = pos;

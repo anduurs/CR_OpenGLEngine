@@ -32,8 +32,6 @@ public class World {
 		
 		em = new EntityManager(this);
 		camera = new Camera();
-		
-		Transform.setCamera(camera);
 	}
 	
 	public boolean tileExists(int xp, int yp){

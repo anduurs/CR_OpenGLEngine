@@ -7,7 +7,6 @@ public class Transform {
 	
 	private Vector3f translation, rotation, scaling;
 	private Matrix4f ortho, perspective;
-	private static Camera camera;
 	
 	public Transform(){
 		translation = new Vector3f(0,0,0);
@@ -111,10 +110,6 @@ public class Transform {
 
 	public void setScalingVector(Vector3f scaling) {
 		this.scaling = scaling;
-	}
-
-	public static void setCamera(Camera camera) {
-		Transform.camera = camera;
 	}
 
 }
