@@ -25,7 +25,7 @@ public class World {
 		shader.addUniform("sampler");
 		shader.setUniformi("sampler", 0);
 		
-		map = new TileMap(100, 100);
+		map = new TileMap(200, 200);
 
 		width = map.getWidth();
 		height = map.getHeight();
@@ -42,15 +42,15 @@ public class World {
 	}
 	
 	public Tile getTile(int xp, int yp){
-//		if(map.getTopLayer().getBitmap().getPixel(xp, yp) != 0){
-//			return map.getTopLayer().getTile(xp, yp);
-//		}else if(map.getMiddleLayer().getBitmap().getPixel(xp, yp) != 0){
-//			return map.getMiddleLayer().getTile(xp, yp);
-//		}else if(map.getBottomLayer().getBitmap().getPixel(xp, yp) != 0){
+		if(map.getTopLayer().getBitmap().getPixel(xp, yp) != 0){
+			return map.getTopLayer().getTile(xp, yp);
+		}else if(map.getMiddleLayer().getBitmap().getPixel(xp, yp) != 0){
+			return map.getMiddleLayer().getTile(xp, yp);
+		}else if(map.getBottomLayer().getBitmap().getPixel(xp, yp) != 0){
 			return map.getBottomLayer().getTile(xp, yp);
-		//}
+		}
 			
-		//return null;
+		return null;
 	}
 	
 	public void tick(float dt){
