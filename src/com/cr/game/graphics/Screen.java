@@ -38,5 +38,14 @@ public class Screen {
 		sprite.getMesh().render();
 		sprite.unbind();
 	}
+	
+	public void renderSprite(Sprite sprite, float x, float y, float row, float col, float xScale, float yScale){
+		sprite.updateTexCoords(row, col);
+		sprite.getTransform().translate(x, y, 0);
+		sprite.getTransform().scale(xScale, yScale, 1);
+		sprite.bind();
+		sprite.getMesh().render();
+		sprite.unbind();
+	}
 
 }

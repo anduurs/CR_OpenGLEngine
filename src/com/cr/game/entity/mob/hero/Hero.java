@@ -4,6 +4,7 @@ import com.cr.game.core.Vector2f;
 import com.cr.game.entity.Collideable;
 import com.cr.game.entity.mob.Mob;
 import com.cr.game.graphics.Animation;
+import com.cr.game.graphics.Screen;
 import com.cr.game.graphics.Sprite;
 import com.cr.game.input.Input;
 import com.cr.game.world.World;
@@ -66,6 +67,11 @@ public class Hero extends Mob implements Collideable{
 			position.y = position.y + targetVel.y*dt;
 		}
 	}
+	
+//	@Override
+//	public void render(Screen screen) {
+//		screen.renderSprite(sprite, position.x , position.y, 1f,1f,1f,1f);
+//	}
 	
 
 	@Override
